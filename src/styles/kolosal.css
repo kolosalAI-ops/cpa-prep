@@ -88,21 +88,14 @@
   --transition-base: 0.25s ease;
 }
 
-/* --- Dark mode --- */
-.dark {
-  --color-text-900: #F9FAFB;
-  --color-text-800: #E5E7EB;
-  --color-text-700: #9CA3AF;
-  --color-text-600: #6B7280;
-  --color-bg: #111827;
-  --color-bg-secondary: #1F2937;
-  --color-bg-tertiary: #374151;
-  --color-border: #374151;
-  --color-border-strong: #4B5563;
-  --color-grey-50: #1F2937;
-  --color-grey-100: #374151;
-  --color-grey-200: #4B5563;
-  --color-grey-300: #6B7280;
+/* --- Dark mode: invert light mode via filter --- */
+.dark .k-card,
+.dark .k-feed {
+  filter: invert(1) hue-rotate(180deg);
+}
+
+.dark .k-feed {
+  background: #111827;
 }
 
 /* ---- Content Card ---- */
