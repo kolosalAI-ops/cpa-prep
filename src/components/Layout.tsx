@@ -1,5 +1,5 @@
 import { Outlet, Link, useLocation } from 'react-router-dom';
-import { BookOpen, Home, List } from 'lucide-react';
+import { BookOpen, Home, List, Zap } from 'lucide-react';
 
 export default function Layout() {
   const location = useLocation();
@@ -24,6 +24,13 @@ export default function Layout() {
           >
             <Home size={24} />
             <span className="text-xs mt-1">Home</span>
+          </Link>
+          <Link 
+            to="/feed" 
+            className={`flex flex-col items-center p-2 ${isActive('/feed') ? 'text-blue-600 dark:text-blue-400' : 'text-gray-500 dark:text-gray-400'}`}
+          >
+            <Zap size={24} />
+            <span className="text-xs mt-1">Feed</span>
           </Link>
           <Link 
             to="/subjects" 

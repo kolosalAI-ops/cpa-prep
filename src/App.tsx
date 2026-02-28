@@ -1,6 +1,7 @@
 import { Routes, Route } from 'react-router-dom';
 import Layout from './components/Layout';
 import Home from './pages/Home';
+import Feed from './pages/Feed';
 import SubjectList from './pages/SubjectList';
 
 function App() {
@@ -8,6 +9,7 @@ function App() {
     <Routes>
       <Route path="/" element={<Layout />}>
         <Route index element={<Home />} />
+        <Route path="feed" element={<Feed />} />
         <Route path="subjects" element={<SubjectList />} />
         <Route path="topics" element={<SubjectList />} />
         <Route path="*" element={<div className="p-4 text-center">Not Found</div>} />

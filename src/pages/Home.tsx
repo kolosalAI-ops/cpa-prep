@@ -9,14 +9,14 @@ export default function Home() {
       </div>
 
       <div className="grid grid-cols-2 gap-4">
+        <Link to="/feed" className="bg-gradient-to-br from-purple-500 to-blue-600 text-white p-4 rounded-xl shadow-sm hover:shadow-md transition">
+          <h3 className="font-semibold text-lg mb-1">⚡ Feed</h3>
+          <p className="text-sm opacity-90">Scroll & learn</p>
+        </Link>
         <Link to="/subjects" className="bg-white dark:bg-gray-800 p-4 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700 hover:shadow-md transition">
           <h3 className="font-semibold text-lg mb-1">Subjects</h3>
           <p className="text-sm text-gray-500 dark:text-gray-400">Browse by category</p>
         </Link>
-        <div className="bg-white dark:bg-gray-800 p-4 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700 opacity-50">
-          <h3 className="font-semibold text-lg mb-1">Practice</h3>
-          <p className="text-sm text-gray-500 dark:text-gray-400">Coming soon</p>
-        </div>
       </div>
 
       <div className="bg-white dark:bg-gray-800 p-4 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700">
