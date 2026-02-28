@@ -1,0 +1,392 @@
+/* ============================================
+   KOLOSAL VANILLA DESIGN SYSTEM
+   CPA Prep — Instagram Reels Mode
+   Ported from kolosalAI-ops/maths-calculus
+   ============================================ */
+
+:root {
+  /* Text Colors */
+  --color-text-900: #0D0E0F;
+  --color-text-800: #3C3E40;
+  --color-text-700: #6A6F73;
+  --color-text-600: #9C9FA1;
+  --color-text-500: #CECFD0;
+
+  /* Background */
+  --color-bg: #FFFFFF;
+  --color-bg-secondary: #F8F9FA;
+  --color-bg-tertiary: #F1F3F5;
+
+  /* Grey Scale */
+  --color-grey-50: #F9FAFB;
+  --color-grey-100: #F3F4F6;
+  --color-grey-200: #E5E7EB;
+  --color-grey-300: #D1D5DB;
+  --color-grey-400: #9CA3AF;
+  --color-grey-500: #6B7280;
+  --color-grey-600: #4B5563;
+  --color-grey-700: #374151;
+  --color-grey-800: #1F2937;
+  --color-grey-900: #111827;
+
+  /* Information (Blue) */
+  --color-information-50: #F0F6FE;
+  --color-information-100: #D9EAFD;
+  --color-information-200: #B3D5FB;
+  --color-information-400: #3A94F2;
+  --color-information-500: #1077E3;
+  --color-information-600: #045DC1;
+
+  /* Success (Green) */
+  --color-success-50: #F3FBF4;
+  --color-success-100: #D9F2DC;
+  --color-success-200: #B3E5B9;
+  --color-success-400: #41B84F;
+  --color-success-500: #28A138;
+  --color-success-600: #1C832A;
+  --color-success-700: #196B25;
+
+  /* Danger (Red) */
+  --color-danger-50: #FFF3F3;
+  --color-danger-100: #FFD9D9;
+  --color-danger-400: #FF4141;
+  --color-danger-500: #E31010;
+  --color-danger-600: #C10404;
+  --color-danger-700: #9C0404;
+
+  /* Warning (Orange) */
+  --color-warning-50: #FFFAF3;
+  --color-warning-100: #FFF0D9;
+  --color-warning-400: #FFAE41;
+  --color-warning-500: #F59510;
+  --color-warning-600: #D47804;
+  --color-warning-700: #AA5F04;
+
+  /* Accent */
+  --color-accent: #1077E3;
+  --color-accent-light: #F0F6FE;
+  --color-accent-hover: #045DC1;
+
+  /* Borders */
+  --color-border: #E5E7EB;
+  --color-border-strong: #D1D5DB;
+
+  /* Shadows */
+  --shadow-sm: 0px 1px 2px rgba(0, 0, 0, 0.05);
+  --shadow-md: 0px 3px 4px -4px rgba(0, 0, 0, 0.15);
+  --shadow-lg: 0px 8px 24px -4px rgba(0, 0, 0, 0.12);
+
+  /* Radius */
+  --radius-sm: 6px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-xl: 16px;
+  --radius-full: 9999px;
+
+  /* Transitions */
+  --transition-fast: 0.15s ease;
+  --transition-base: 0.25s ease;
+}
+
+/* --- Dark mode --- */
+.dark {
+  --color-text-900: #F9FAFB;
+  --color-text-800: #E5E7EB;
+  --color-text-700: #9CA3AF;
+  --color-text-600: #6B7280;
+  --color-bg: #111827;
+  --color-bg-secondary: #1F2937;
+  --color-bg-tertiary: #374151;
+  --color-border: #374151;
+  --color-border-strong: #4B5563;
+  --color-grey-50: #1F2937;
+  --color-grey-100: #374151;
+  --color-grey-200: #4B5563;
+  --color-grey-300: #6B7280;
+}
+
+/* ---- Content Card ---- */
+.k-card {
+  background: var(--color-bg);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: 24px;
+  box-shadow: var(--shadow-sm);
+  transition: box-shadow var(--transition-base);
+}
+
+.k-card:hover {
+  box-shadow: var(--shadow-md);
+}
+
+/* ---- Badge ---- */
+.k-badge {
+  display: inline-flex;
+  align-items: center;
+  font-size: 12px;
+  font-weight: 600;
+  border-radius: var(--radius-full);
+  white-space: nowrap;
+  height: 24px;
+  padding: 0 10px;
+}
+
+.k-badge-information { background: var(--color-information-50); color: var(--color-information-600); }
+.k-badge-success { background: var(--color-success-50); color: var(--color-success-600); }
+.k-badge-danger { background: var(--color-danger-50); color: var(--color-danger-600); }
+.k-badge-warning { background: var(--color-warning-50); color: var(--color-warning-600); }
+.k-badge-grey { background: var(--color-grey-100); color: var(--color-grey-600); }
+
+/* ---- Card Type Label ---- */
+.k-type-label {
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: var(--color-text-600);
+}
+
+/* ---- Card Header ---- */
+.k-card-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--color-border);
+  margin-bottom: 16px;
+}
+
+/* ---- Card Title ---- */
+.k-card-title {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--color-text-900);
+  line-height: 1.3;
+  margin-bottom: 12px;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+}
+
+/* ---- Card Body ---- */
+.k-card-body {
+  font-size: 15px;
+  line-height: 1.65;
+  color: var(--color-text-800);
+}
+
+/* ---- Definition Box ---- */
+.k-definition-box {
+  background: var(--color-information-50);
+  border: 1px solid var(--color-information-200);
+  border-radius: var(--radius-md);
+  padding: 16px;
+  margin-top: 12px;
+}
+
+/* ---- Callout ---- */
+.k-callout {
+  border-radius: var(--radius-md);
+  padding: 16px;
+  margin-top: 12px;
+  border-left: 3px solid;
+}
+
+.k-callout-success {
+  background: var(--color-success-50);
+  border-color: var(--color-success-400);
+  color: var(--color-success-700);
+}
+
+.k-callout-danger {
+  background: var(--color-danger-50);
+  border-color: var(--color-danger-400);
+  color: var(--color-danger-700);
+}
+
+.k-callout-warning {
+  background: var(--color-warning-50);
+  border-color: var(--color-warning-400);
+  color: var(--color-warning-700);
+}
+
+.k-callout-info {
+  background: var(--color-information-50);
+  border-color: var(--color-information-400);
+  color: var(--color-information-600);
+}
+
+.k-callout-title {
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+
+/* ---- Quiz Option ---- */
+.k-quiz-option {
+  width: 100%;
+  text-align: left;
+  padding: 12px 14px;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--color-border);
+  background: var(--color-bg-secondary);
+  font-size: 14px;
+  color: var(--color-text-800);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  font-family: inherit;
+}
+
+.k-quiz-option:hover:not(:disabled) {
+  border-color: var(--color-accent);
+  background: var(--color-accent-light);
+}
+
+.k-quiz-option:active:not(:disabled) {
+  transform: scale(0.98);
+}
+
+.k-quiz-option:disabled {
+  cursor: default;
+}
+
+.k-quiz-option-correct {
+  border-color: var(--color-success-400) !important;
+  background: var(--color-success-50) !important;
+  color: var(--color-success-700) !important;
+}
+
+.k-quiz-option-wrong {
+  border-color: var(--color-danger-400) !important;
+  background: var(--color-danger-50) !important;
+  color: var(--color-danger-700) !important;
+}
+
+/* ---- Source Citation ---- */
+.k-source {
+  font-size: 12px;
+  font-style: italic;
+  color: var(--color-warning-600);
+  margin-top: 16px;
+}
+
+/* ---- Tap Hint Pill ---- */
+.k-tap-hint {
+  display: inline-flex;
+  align-items: center;
+  font-size: 12px;
+  color: var(--color-text-600);
+  background: var(--color-grey-100);
+  padding: 4px 12px;
+  border-radius: var(--radius-full);
+}
+
+/* ---- Feed Container (Instagram Reels snap scroll) ---- */
+.k-feed {
+  position: fixed;
+  inset: 0;
+  overflow-y: scroll;
+  scroll-snap-type: y mandatory;
+  scrollbar-width: none;
+  background: var(--color-bg);
+}
+
+.k-feed::-webkit-scrollbar {
+  display: none;
+}
+
+/* ---- Feed Slide ---- */
+.k-feed-slide {
+  scroll-snap-align: start;
+  height: 100vh;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  background: var(--color-bg);
+}
+
+.k-feed-slide-inner {
+  width: 100%;
+  max-width: 480px;
+  padding: 0 16px;
+}
+
+/* ---- Counter ---- */
+.k-counter {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+
+.k-counter-text {
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--color-text-600);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+/* ---- Progress Dots ---- */
+.k-dots {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.k-dot {
+  border-radius: var(--radius-full);
+  transition: all 0.3s ease;
+}
+
+.k-dot-active {
+  width: 24px;
+  height: 6px;
+  background: var(--color-accent);
+}
+
+.k-dot-inactive {
+  width: 6px;
+  height: 6px;
+  background: var(--color-grey-300);
+}
+
+/* ---- Swipe Hint ---- */
+@keyframes k-bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+}
+
+.k-swipe-hint {
+  animation: k-bounce 1.5s ease infinite;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 16px;
+  color: var(--color-text-600);
+  font-size: 12px;
+  gap: 2px;
+}
+
+/* ---- Nav Arrows ---- */
+.k-nav-arrow {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 8px;
+  border-radius: var(--radius-full);
+  background: var(--color-grey-100);
+  border: none;
+  cursor: pointer;
+  opacity: 0;
+  transition: opacity var(--transition-base);
+  color: var(--color-text-600);
+}
+
+.k-feed-slide:hover .k-nav-arrow {
+  opacity: 1;
+}
+
+.k-nav-arrow-up { top: 80px; }
+.k-nav-arrow-down { bottom: 96px; }

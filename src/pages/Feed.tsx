@@ -61,88 +61,56 @@ export default function Feed() {
   };
 
   return (
-    <div
-      ref={containerRef}
-      className="fixed inset-0 overflow-y-scroll snap-y snap-mandatory"
-      style={{ scrollbarWidth: 'none' }}
-    >
-      <style>{`div::-webkit-scrollbar { display: none; }`}</style>
-
+    <div ref={containerRef} className="k-feed">
       {cards.map((card, index) => (
-        <div
-          key={card.id}
-          className="snap-start h-screen w-full flex items-center justify-center relative"
-        >
-          {/* Background gradient per card type */}
-          <div className="absolute inset-0 bg-gray-50 dark:bg-gray-900" />
-
-          <div className="relative z-10 w-full max-w-lg px-4">
-            {/* Card counter */}
-            <div className="flex items-center justify-between mb-3">
-              <div className="flex items-center gap-1.5">
-                <Flame size={14} className="text-orange-500" />
-                <span className="text-xs font-medium text-gray-500 dark:text-gray-400">
-                  {index + 1} / {cards.length}
-                </span>
+        <div key={card.id} className="k-feed-slide">
+          <div className="k-feed-slide-inner">
+            <div className="k-counter">
+              <div className="k-counter-text">
+                <Flame size={14} style={{ color: 'var(--color-warning-500)' }} />
+                {index + 1} / {cards.length}
               </div>
-              <div className="flex items-center gap-1">
-                {cards.length > 0 && (
-                  <>
-                    {Array.from({ length: Math.min(cards.length, 5) }, (_, i) => {
-                      const dotIndex = activeIndex <= 2
-                        ? i
-                        : activeIndex >= cards.length - 3
-                          ? cards.length - 5 + i
-                          : activeIndex - 2 + i;
-                      return (
-                        <div
-                          key={dotIndex}
-                          className={`rounded-full transition-all duration-300 ${
-                            dotIndex === activeIndex
-                              ? 'w-6 h-1.5 bg-blue-500'
-                              : 'w-1.5 h-1.5 bg-gray-300 dark:bg-gray-600'
-                          }`}
-                        />
-                      );
-                    })}
-                  </>
-                )}
+              <div className="k-dots">
+                {cards.length > 0 && Array.from({ length: Math.min(cards.length, 5) }, (_, i) => {
+                  const dotIndex = activeIndex <= 2
+                    ? i
+                    : activeIndex >= cards.length - 3
+                      ? cards.length - 5 + i
+                      : activeIndex - 2 + i;
+                  return (
+                    <div
+                      key={dotIndex}
+                      className={`k-dot ${dotIndex === activeIndex ? 'k-dot-active' : 'k-dot-inactive'}`}
+                    />
+                  );
+                })}
               </div>
             </div>
 
             <FeedCardRenderer card={card} />
 
-            {/* Swipe hint on first card */}
             {index === 0 && activeIndex === 0 && (
-              <div className="mt-4 flex flex-col items-center animate-bounce">
-                <ChevronUp size={20} className="text-gray-400" />
-                <span className="text-xs text-gray-400">Swipe up</span>
+              <div className="k-swipe-hint">
+                <ChevronUp size={20} />
+                <span>Swipe up</span>
               </div>
             )}
           </div>
 
-          {/* Navigation arrows */}
           {index > 0 && (
-            <button
-              onClick={() => scrollToIndex(index - 1)}
-              className="absolute top-20 left-1/2 -translate-x-1/2 p-2 rounded-full bg-white/10 dark:bg-gray-800/30 backdrop-blur-sm opacity-0 hover:opacity-100 transition-opacity"
-            >
-              <ChevronUp size={20} className="text-gray-500" />
+            <button onClick={() => scrollToIndex(index - 1)} className="k-nav-arrow k-nav-arrow-up">
+              <ChevronUp size={20} />
             </button>
           )}
           {index < cards.length - 1 && (
-            <button
-              onClick={() => scrollToIndex(index + 1)}
-              className="absolute bottom-24 left-1/2 -translate-x-1/2 p-2 rounded-full bg-white/10 dark:bg-gray-800/30 backdrop-blur-sm opacity-0 hover:opacity-100 transition-opacity"
-            >
-              <ChevronDown size={20} className="text-gray-500" />
+            <button onClick={() => scrollToIndex(index + 1)} className="k-nav-arrow k-nav-arrow-down">
+              <ChevronDown size={20} />
             </button>
           )}
         </div>
       ))}
 
-      {/* Sentinel for infinite scroll trigger */}
-      <div ref={sentinelRef} className="h-4 snap-start" />
+      <div ref={sentinelRef} style={{ height: 16, scrollSnapAlign: 'start' }} />
     </div>
   );
 }
