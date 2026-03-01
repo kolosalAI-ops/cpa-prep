@@ -9,8 +9,8 @@ export default function Feed() {
   const [activeIndex, setActiveIndex] = useState(0);
   const existingIdsRef = useRef(new Set<string>());
   const containerRef = useRef<HTMLDivElement>(null);
-  const sentinelRef = useRef<HTMLDivElement>(null);
   const loadingRef = useRef(false);
+  const isAnimatingRef = useRef(false);
 
   // Load initial batch
   useEffect(() => {
@@ -18,53 +18,111 @@ export default function Feed() {
     setCards(batch);
   }, []);
 
-  // Infinite scroll via IntersectionObserver on sentinel
-  const loadMore = useCallback(() => {
-    if (loadingRef.current) return;
-    loadingRef.current = true;
-    setTimeout(() => {
-      const batch = generateFeedBatch(existingIdsRef.current, 6);
-      setCards(prev => [...prev, ...batch]);
-      loadingRef.current = false;
-    }, 400);
+  // Load more cards when near the end
+  const maybeLoadMore = useCallback((index: number, total: number) => {
+    if (index >= total - 3 && !loadingRef.current) {
+      loadingRef.current = true;
+      setTimeout(() => {
+        const batch = generateFeedBatch(existingIdsRef.current, 6);
+        setCards(prev => [...prev, ...batch]);
+        loadingRef.current = false;
+      }, 400);
+    }
   }, []);
 
-  useEffect(() => {
-    const sentinel = sentinelRef.current;
-    if (!sentinel) return;
-    const observer = new IntersectionObserver(
-      (entries) => {
-        if (entries[0].isIntersecting) loadMore();
-      },
-      { rootMargin: '200px' }
-    );
-    observer.observe(sentinel);
-    return () => observer.disconnect();
-  }, [loadMore]);
+  const goToIndex = useCallback((index: number) => {
+    const container = containerRef.current;
+    if (!container || isAnimatingRef.current) return;
+    setCards(prev => {
+      const clamped = Math.max(0, Math.min(index, prev.length - 1));
+      isAnimatingRef.current = true;
+      setActiveIndex(clamped);
+      container.scrollTo({ top: clamped * container.clientHeight, behavior: 'smooth' });
+      maybeLoadMore(clamped, prev.length);
+      setTimeout(() => { isAnimatingRef.current = false; }, 400);
+      return prev;
+    });
+  }, [maybeLoadMore]);
 
-  // Track active card via scroll position
+  // Prevent native scroll — use touch/wheel to move one card at a time
   useEffect(() => {
     const container = containerRef.current;
     if (!container) return;
-    let ticking = false;
-    const handleScroll = () => {
-      if (ticking) return;
-      ticking = true;
-      requestAnimationFrame(() => {
-        const index = Math.round(container.scrollTop / container.clientHeight);
-        setActiveIndex(index);
-        ticking = false;
-      });
-    };
-    container.addEventListener('scroll', handleScroll, { passive: true });
-    return () => container.removeEventListener('scroll', handleScroll);
-  }, []);
 
-  const scrollToIndex = (index: number) => {
-    const container = containerRef.current;
-    if (!container || index < 0 || index >= cards.length) return;
-    container.scrollTo({ top: index * container.clientHeight, behavior: 'smooth' });
-  };
+    let touchStartY = 0;
+    let touchDelta = 0;
+    const SWIPE_THRESHOLD = 50;
+
+    // Check if target is inside a scrollable inner container that hasn't reached its bounds
+    const isInnerScrollable = (target: EventTarget | null, deltaY: number): boolean => {
+      let el = target as HTMLElement | null;
+      while (el && el !== container) {
+        if (el.classList.contains('k-feed-slide-inner') && el.scrollHeight > el.clientHeight) {
+          const atTop = el.scrollTop <= 0;
+          const atBottom = el.scrollTop + el.clientHeight >= el.scrollHeight - 1;
+          if (deltaY > 0 && !atBottom) return true;  // scrolling down, not at bottom
+          if (deltaY < 0 && !atTop) return true;     // scrolling up, not at top
+        }
+        el = el.parentElement;
+      }
+      return false;
+    };
+
+    const onWheel = (e: WheelEvent) => {
+      if (isInnerScrollable(e.target, e.deltaY)) return; // let inner scroll naturally
+      e.preventDefault();
+      if (isAnimatingRef.current) return;
+      if (e.deltaY > 30) goToIndex(activeIndex + 1);
+      else if (e.deltaY < -30) goToIndex(activeIndex - 1);
+    };
+
+    const onTouchStart = (e: TouchEvent) => {
+      touchStartY = e.touches[0].clientY;
+      touchDelta = 0;
+    };
+
+    const onTouchMove = (e: TouchEvent) => {
+      touchDelta = touchStartY - e.touches[0].clientY;
+      if (!isInnerScrollable(e.target, touchDelta)) {
+        e.preventDefault();
+      }
+    };
+
+    const onTouchEnd = () => {
+      if (isAnimatingRef.current) return;
+      if (touchDelta > SWIPE_THRESHOLD) goToIndex(activeIndex + 1);
+      else if (touchDelta < -SWIPE_THRESHOLD) goToIndex(activeIndex - 1);
+    };
+
+    const onKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'ArrowDown' || e.key === ' ') { e.preventDefault(); goToIndex(activeIndex + 1); }
+      else if (e.key === 'ArrowUp') { e.preventDefault(); goToIndex(activeIndex - 1); }
+    };
+
+    container.addEventListener('wheel', onWheel, { passive: false });
+    container.addEventListener('touchstart', onTouchStart, { passive: true });
+    container.addEventListener('touchmove', onTouchMove, { passive: false });
+    container.addEventListener('touchend', onTouchEnd, { passive: true });
+    window.addEventListener('keydown', onKeyDown);
+
+    return () => {
+      container.removeEventListener('wheel', onWheel);
+      container.removeEventListener('touchstart', onTouchStart);
+      container.removeEventListener('touchmove', onTouchMove);
+      container.removeEventListener('touchend', onTouchEnd);
+      window.removeEventListener('keydown', onKeyDown);
+    };
+  }, [activeIndex, goToIndex]);
+
+  // Sync scroll position on resize
+  useEffect(() => {
+    const onResize = () => {
+      const container = containerRef.current;
+      if (container) container.scrollTo({ top: activeIndex * container.clientHeight });
+    };
+    window.addEventListener('resize', onResize);
+    return () => window.removeEventListener('resize', onResize);
+  }, [activeIndex]);
 
   return (
     <div ref={containerRef} className="k-feed">
@@ -104,19 +162,17 @@ export default function Feed() {
           </div>
 
           {index > 0 && (
-            <button onClick={() => scrollToIndex(index - 1)} className="k-nav-arrow k-nav-arrow-up">
+            <button onClick={() => goToIndex(index - 1)} className="k-nav-arrow k-nav-arrow-up">
               <ChevronUp size={20} />
             </button>
           )}
           {index < cards.length - 1 && (
-            <button onClick={() => scrollToIndex(index + 1)} className="k-nav-arrow k-nav-arrow-down">
+            <button onClick={() => goToIndex(index + 1)} className="k-nav-arrow k-nav-arrow-down">
               <ChevronDown size={20} />
             </button>
           )}
         </div>
       ))}
-
-      <div ref={sentinelRef} style={{ height: 1 }} />
     </div>
   );
 }
