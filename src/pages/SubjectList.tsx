@@ -1,32 +1,51 @@
 import { Link } from 'react-router-dom';
 import { subjects, feedCards } from '../content/feedData';
+import type { ExamLevel } from '../content/feedData';
+
+const levelLabels: Record<ExamLevel, string> = {
+  'cafb': 'Level 1 — CAFB',
+  'associate-ca': 'Level 2 — Associate CA',
+  'ca': 'Level 3 — Chartered Accountant',
+};
 
 export default function SubjectList() {
+  const grouped = subjects.reduce((acc, s) => {
+    const lvl = ('level' in s && s.level) ? s.level as ExamLevel : 'other';
+    if (!acc[lvl]) acc[lvl] = [];
+    acc[lvl].push(s);
+    return acc;
+  }, {} as Record<string, typeof subjects[number][]>);
+
+  const levelOrder: (ExamLevel | 'other')[] = ['cafb', 'associate-ca', 'ca', 'other'];
+
   return (
-    <div className="space-y-4">
-      <h2 className="text-2xl font-bold">Mata Ujian</h2>
-      <div className="space-y-3">
-        {subjects.map((subject) => {
-          const count = feedCards.filter(c => c.subject === subject.title).length;
-          return (
-            <Link 
-              key={subject.id} 
-              to={`/subjects/${subject.id}`}
-              className="block bg-white dark:bg-gray-800 p-4 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700 hover:border-blue-500 transition"
-            >
-              <div className="flex justify-between items-center">
-                <h3 className="font-semibold">
-                  <span className="mr-2">{subject.icon}</span>
-                  {subject.title}
-                </h3>
-                <span className="bg-blue-100 dark:bg-blue-900 text-blue-600 dark:text-blue-300 text-xs px-2 py-1 rounded-full">
-                  {count} kartu
-                </span>
-              </div>
-            </Link>
-          );
-        })}
-      </div>
+    <div className="k-subject-list">
+      <h2 className="k-subject-list-title">Mata Ujian</h2>
+      {levelOrder.map(lvl => {
+        const items = grouped[lvl];
+        if (!items || items.length === 0) return null;
+        return (
+          <div key={lvl}>
+            {lvl !== 'other' && (
+              <div className="k-subject-level-label">{levelLabels[lvl as ExamLevel]}</div>
+            )}
+            <div className="k-subject-items">
+              {items.map((subject) => {
+                const count = feedCards.filter(c => c.subject === subject.title).length;
+                return (
+                  <Link key={subject.id} to={`/subjects/${subject.id}`} className="k-subject-link">
+                    <span className="k-subject-name">
+                      <span>{subject.icon}</span>
+                      {subject.title}
+                    </span>
+                    <span className="k-subject-count">{count} kartu</span>
+                  </Link>
+                );
+              })}
+            </div>
+          </div>
+        );
+      })}
     </div>
   );
 }

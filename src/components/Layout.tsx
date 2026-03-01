@@ -9,53 +9,36 @@ export default function Layout() {
   const isActive = (path: string) => location.pathname === path;
 
   return (
-    <div className="min-h-screen flex flex-col bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-gray-100">
-      <header className="bg-white dark:bg-gray-800 shadow p-4 sticky top-0 z-10 flex items-center justify-between">
-        <div className="w-8" />
-        <h1 className="text-xl font-bold text-center text-blue-600 dark:text-blue-400">CA Prep 🇮🇩</h1>
-        <button
-          onClick={logout}
-          className="text-gray-400 hover:text-red-500 transition-colors p-1"
-          aria-label="Logout"
-          title="Logout"
-        >
+    <div className="k-layout">
+      <header className="k-header">
+        <div className="k-header-spacer" />
+        <h1 className="k-header-title">CA Prep 🇮🇩</h1>
+        <button onClick={logout} className="k-header-logout" aria-label="Logout" title="Logout">
           <LogOut size={20} />
         </button>
       </header>
 
-      <main className="flex-1 p-4 pb-20 max-w-3xl mx-auto w-full">
+      <main className="k-main">
         <Outlet />
       </main>
 
-      <nav className="fixed bottom-0 w-full bg-white dark:bg-gray-800 border-t border-gray-200 dark:border-gray-700 pb-safe">
-        <div className="flex justify-around items-center h-16 max-w-3xl mx-auto">
-          <Link 
-            to="/" 
-            className={`flex flex-col items-center p-2 ${isActive('/') ? 'text-blue-600 dark:text-blue-400' : 'text-gray-500 dark:text-gray-400'}`}
-          >
-            <Home size={24} />
-            <span className="text-xs mt-1">Home</span>
+      <nav className="k-bottom-nav">
+        <div className="k-bottom-nav-inner">
+          <Link to="/" className={`k-nav-link ${isActive('/') ? 'k-nav-link-active' : 'k-nav-link-inactive'}`}>
+            <Home size={22} />
+            <span className="k-nav-label">Home</span>
           </Link>
-          <Link 
-            to="/feed" 
-            className={`flex flex-col items-center p-2 ${isActive('/feed') ? 'text-blue-600 dark:text-blue-400' : 'text-gray-500 dark:text-gray-400'}`}
-          >
-            <Zap size={24} />
-            <span className="text-xs mt-1">Feed</span>
+          <Link to="/feed" className={`k-nav-link ${isActive('/feed') ? 'k-nav-link-active' : 'k-nav-link-inactive'}`}>
+            <Zap size={22} />
+            <span className="k-nav-label">Feed</span>
           </Link>
-          <Link 
-            to="/subjects" 
-            className={`flex flex-col items-center p-2 ${isActive('/subjects') ? 'text-blue-600 dark:text-blue-400' : 'text-gray-500 dark:text-gray-400'}`}
-          >
-            <BookOpen size={24} />
-            <span className="text-xs mt-1">Subjects</span>
+          <Link to="/subjects" className={`k-nav-link ${isActive('/subjects') ? 'k-nav-link-active' : 'k-nav-link-inactive'}`}>
+            <BookOpen size={22} />
+            <span className="k-nav-label">Subjects</span>
           </Link>
-          <Link 
-            to="/topics" 
-            className={`flex flex-col items-center p-2 ${isActive('/topics') ? 'text-blue-600 dark:text-blue-400' : 'text-gray-500 dark:text-gray-400'}`}
-          >
-            <List size={24} />
-            <span className="text-xs mt-1">Topics</span>
+          <Link to="/topics" className={`k-nav-link ${isActive('/topics') ? 'k-nav-link-active' : 'k-nav-link-inactive'}`}>
+            <List size={22} />
+            <span className="k-nav-label">Topics</span>
           </Link>
         </div>
       </nav>

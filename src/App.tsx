@@ -22,7 +22,7 @@ function App() {
         <Route path="subjects" element={<SubjectList />} />
         <Route path="subjects/:subjectId" element={<SubjectDetail />} />
         <Route path="topics" element={<SubjectList />} />
-        <Route path="*" element={<div className="p-4 text-center">Not Found</div>} />
+        <Route path="*" element={<div className="k-not-found">Not Found</div>} />
       </Route>
     </Routes>
   );

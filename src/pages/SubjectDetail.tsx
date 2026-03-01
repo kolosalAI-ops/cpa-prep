@@ -30,9 +30,9 @@ export default function SubjectDetail() {
 
   if (!subject) {
     return (
-      <div className="p-4 text-center">
-        <p className="text-gray-500 mb-4">Mata ujian tidak ditemukan</p>
-        <Link to="/subjects" className="text-blue-600 hover:underline">← Kembali</Link>
+      <div className="k-not-found">
+        <p>Mata ujian tidak ditemukan</p>
+        <Link to="/subjects">← Kembali</Link>
       </div>
     );
   }
