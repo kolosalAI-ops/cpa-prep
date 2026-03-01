@@ -383,3 +383,121 @@
 
 .k-nav-arrow-up { top: 80px; }
 .k-nav-arrow-down { bottom: 96px; }
+
+/* ---- Difficulty Badge ---- */
+.k-difficulty {
+  display: inline-flex;
+  align-items: center;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  border-radius: var(--radius-full);
+  padding: 2px 8px;
+  height: 20px;
+}
+
+.k-difficulty-dasar {
+  background: var(--color-success-50);
+  color: var(--color-success-600);
+}
+
+.k-difficulty-menengah {
+  background: var(--color-warning-50);
+  color: var(--color-warning-600);
+}
+
+.k-difficulty-lanjutan {
+  background: var(--color-danger-50);
+  color: var(--color-danger-600);
+}
+
+/* ---- Key Takeaway ---- */
+.k-takeaway {
+  background: linear-gradient(135deg, var(--color-information-50), var(--color-success-50));
+  border: 1px solid var(--color-information-200);
+  border-radius: var(--radius-md);
+  padding: 10px 12px;
+  margin-top: 12px;
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--color-text-900);
+}
+
+.k-takeaway-label {
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--color-information-500);
+  margin-bottom: 4px;
+}
+
+/* ---- Example Box ---- */
+.k-example {
+  background: var(--color-grey-50);
+  border: 1px dashed var(--color-grey-300);
+  border-radius: var(--radius-md);
+  padding: 10px 12px;
+  margin-top: 10px;
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--color-text-800);
+}
+
+.k-example-label {
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--color-warning-500);
+  margin-bottom: 4px;
+}
+
+/* ---- Mnemonic Pill ---- */
+.k-mnemonic {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  background: var(--color-warning-50);
+  border: 1px solid var(--color-warning-400);
+  border-radius: var(--radius-md);
+  padding: 6px 10px;
+  margin-top: 10px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--color-warning-700);
+}
+
+/* ---- Why It Matters ---- */
+.k-why-matters {
+  background: var(--color-success-50);
+  border-left: 3px solid var(--color-success-400);
+  border-radius: 0 var(--radius-md) var(--radius-md) 0;
+  padding: 10px 12px;
+  margin-top: 10px;
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--color-success-700);
+}
+
+/* ---- Reasoning (Step-by-step) ---- */
+.k-reasoning {
+  background: var(--color-information-50);
+  border-left: 3px solid var(--color-information-400);
+  border-radius: 0 var(--radius-md) var(--radius-md) 0;
+  padding: 10px 12px;
+  margin-top: 8px;
+  font-size: 13px;
+  line-height: 1.6;
+  color: var(--color-information-600);
+}
+
+.k-reasoning-label {
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--color-information-500);
+  margin-bottom: 4px;
+}

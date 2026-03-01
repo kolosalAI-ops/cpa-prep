@@ -8,19 +8,41 @@ export default function FlashCard({ card }: { card: FeedCard }) {
     <div className="k-card k-flashcard" onClick={() => setFlipped(!flipped)}>
       <div className="k-card-header">
         <span className="k-badge k-badge-information">{card.subject}</span>
-        <span className="k-type-label">Flashcard</span>
+        {card.difficulty && (
+          <span className={`k-difficulty k-difficulty-${card.difficulty}`}>{card.difficulty}</span>
+        )}
+        <span className="k-type-label" style={{ marginLeft: 'auto' }}>Flashcard</span>
       </div>
       <h3 className="k-card-title">{card.title}</h3>
       {!flipped ? (
-        <p className="k-card-body">{card.content}</p>
+        <>
+          <p className="k-card-body">{card.content}</p>
+          {card.mnemonic && (
+            <div className="k-mnemonic">🧠 {card.mnemonic}</div>
+          )}
+        </>
       ) : (
-        <div className="k-callout k-callout-success">
-          <p style={{ fontSize: 14, lineHeight: 1.6, margin: 0 }}>{card.answer}</p>
-        </div>
+        <>
+          <div className="k-callout k-callout-success">
+            <p style={{ fontSize: 14, lineHeight: 1.6, margin: 0 }}>{card.answer}</p>
+          </div>
+          {card.example && (
+            <div className="k-example">
+              <div className="k-example-label">📌 Contoh</div>
+              {card.example}
+            </div>
+          )}
+          {card.keyTakeaway && (
+            <div className="k-takeaway">
+              <div className="k-takeaway-label">💡 Poin Kunci</div>
+              {card.keyTakeaway}
+            </div>
+          )}
+        </>
       )}
       <div style={{ textAlign: 'center', marginTop: 16 }}>
         <span className="k-tap-hint">
-          {flipped ? '↑ Tap to see question' : '↓ Tap to reveal answer'}
+          {flipped ? '↑ Tap untuk lihat soal' : '↓ Tap untuk lihat jawaban'}
         </span>
       </div>
     </div>
