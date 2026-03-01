@@ -278,6 +278,8 @@
   inset: 0;
   overflow-y: scroll;
   scroll-snap-type: y mandatory;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior-y: contain;
   scrollbar-width: none;
   background: var(--color-bg);
 }
@@ -289,6 +291,7 @@
 /* ---- Feed Slide ---- */
 .k-feed-slide {
   scroll-snap-align: start;
+  scroll-snap-stop: always;
   height: 100vh;
   width: 100%;
   display: flex;
@@ -302,6 +305,9 @@
   width: 100%;
   max-width: 480px;
   padding: 0 16px;
+  max-height: 90vh;
+  overflow-y: auto;
+  overscroll-behavior: contain;
 }
 
 /* ---- Counter ---- */
