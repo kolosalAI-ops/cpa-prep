@@ -3,6 +3,7 @@ import Layout from './components/Layout';
 import Home from './pages/Home';
 import Feed from './pages/Feed';
 import SubjectList from './pages/SubjectList';
+import SubjectDetail from './pages/SubjectDetail';
 
 function App() {
   return (
@@ -11,6 +12,7 @@ function App() {
         <Route index element={<Home />} />
         <Route path="feed" element={<Feed />} />
         <Route path="subjects" element={<SubjectList />} />
+        <Route path="subjects/:subjectId" element={<SubjectDetail />} />
         <Route path="topics" element={<SubjectList />} />
         <Route path="*" element={<div className="p-4 text-center">Not Found</div>} />
       </Route>
