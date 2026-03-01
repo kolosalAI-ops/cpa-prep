@@ -6,11 +6,11 @@ import { Flame, ChevronUp, ChevronDown } from 'lucide-react';
 
 export default function Feed() {
   const [cards, setCards] = useState<FeedCard[]>([]);
-  const [loading, setLoading] = useState(false);
   const [activeIndex, setActiveIndex] = useState(0);
   const existingIdsRef = useRef(new Set<string>());
   const containerRef = useRef<HTMLDivElement>(null);
   const sentinelRef = useRef<HTMLDivElement>(null);
+  const loadingRef = useRef(false);
 
   // Load initial batch
   useEffect(() => {
@@ -20,14 +20,14 @@ export default function Feed() {
 
   // Infinite scroll via IntersectionObserver on sentinel
   const loadMore = useCallback(() => {
-    if (loading) return;
-    setLoading(true);
+    if (loadingRef.current) return;
+    loadingRef.current = true;
     setTimeout(() => {
       const batch = generateFeedBatch(existingIdsRef.current, 6);
       setCards(prev => [...prev, ...batch]);
-      setLoading(false);
+      loadingRef.current = false;
     }, 400);
-  }, [loading]);
+  }, []);
 
   useEffect(() => {
     const sentinel = sentinelRef.current;
@@ -46,9 +46,15 @@ export default function Feed() {
   useEffect(() => {
     const container = containerRef.current;
     if (!container) return;
+    let ticking = false;
     const handleScroll = () => {
-      const index = Math.round(container.scrollTop / container.clientHeight);
-      setActiveIndex(index);
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(() => {
+        const index = Math.round(container.scrollTop / container.clientHeight);
+        setActiveIndex(index);
+        ticking = false;
+      });
     };
     container.addEventListener('scroll', handleScroll, { passive: true });
     return () => container.removeEventListener('scroll', handleScroll);
@@ -110,7 +116,7 @@ export default function Feed() {
         </div>
       ))}
 
-      <div ref={sentinelRef} style={{ height: 16, scrollSnapAlign: 'start' }} />
+      <div ref={sentinelRef} style={{ height: 1 }} />
     </div>
   );
 }
