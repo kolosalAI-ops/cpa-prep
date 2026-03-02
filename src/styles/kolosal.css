@@ -253,6 +253,12 @@
   color: var(--color-danger-700) !important;
 }
 
+.k-quiz-option-selected {
+  border-color: var(--color-accent) !important;
+  background: var(--color-information-50) !important;
+  color: var(--color-accent) !important;
+}
+
 /* ---- Source Citation ---- */
 .k-source {
   font-size: 12px;
