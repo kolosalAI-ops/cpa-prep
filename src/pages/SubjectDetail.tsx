@@ -2,7 +2,7 @@ import { useParams, Link } from 'react-router-dom';
 import { useState, useRef, useEffect } from 'react';
 import { subjects, feedCards } from '../content/feedData';
 import FeedCardRenderer from '../components/cards/FeedCardRenderer';
-import { ChevronUp, ChevronDown, ArrowLeft, Flame } from 'lucide-react';
+import { ChevronUp, ChevronDown, ArrowLeft, Flame, BookOpen } from 'lucide-react';
 
 export default function SubjectDetail() {
   const { subjectId } = useParams<{ subjectId: string }>();
@@ -50,6 +50,10 @@ export default function SubjectDetail() {
             </p>
             <Link to="/subjects" style={{ color: 'var(--color-primary-500)', marginTop: '1rem', display: 'inline-flex', alignItems: 'center', gap: '0.25rem' }}>
               <ArrowLeft size={16} /> Kembali
+            </Link>
+            <Link to={`/subjects/${subjectId}/formal`} className="k-formal-btn">
+              <BookOpen size={16} />
+              Materi Formal
             </Link>
           </div>
           <div className="k-swipe-hint">

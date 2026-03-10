@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import { subjects, feedCards } from '../content/feedData';
 import type { ExamLevel } from '../content/feedData';
+import { BookOpen } from 'lucide-react';
 
 const levelLabels: Record<ExamLevel, string> = {
   'cafb': 'Level 1 — CAFB',
@@ -33,13 +34,22 @@ export default function SubjectList() {
               {items.map((subject) => {
                 const count = feedCards.filter(c => c.subject === subject.title).length;
                 return (
-                  <Link key={subject.id} to={`/subjects/${subject.id}`} className="k-subject-link">
-                    <span className="k-subject-name">
-                      <span>{subject.icon}</span>
-                      {subject.title}
-                    </span>
-                    <span className="k-subject-count">{count} kartu</span>
-                  </Link>
+                  <div key={subject.id} className="k-subject-item-row">
+                    <Link to={`/subjects/${subject.id}`} className="k-subject-link">
+                      <span className="k-subject-name">
+                        <span>{subject.icon}</span>
+                        {subject.title}
+                      </span>
+                      <span className="k-subject-count">{count} kartu</span>
+                    </Link>
+                    <Link
+                      to={`/subjects/${subject.id}/formal`}
+                      className="k-subject-formal-link"
+                      title="Materi Formal"
+                    >
+                      <BookOpen size={14} />
+                    </Link>
+                  </div>
                 );
               })}
             </div>

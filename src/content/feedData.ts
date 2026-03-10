@@ -1,6 +1,17 @@
-export type CardType = 'flashcard' | 'quiz' | 'fact' | 'tip';
+export type CardType = 'flashcard' | 'quiz' | 'fact' | 'tip' | 'material';
 export type Difficulty = 'dasar' | 'menengah' | 'lanjutan';
 export type ExamLevel = 'cafb' | 'associate-ca' | 'ca';
+
+export interface TableData {
+  headers: string[];
+  rows: string[][];
+  caption?: string;
+}
+
+export interface MaterialSection {
+  heading: string;
+  body: string;
+}
 
 export interface FeedCard {
   id: string;
@@ -21,6 +32,12 @@ export interface FeedCard {
   // fact
   source?: string;
   whyItMatters?: string;
+  // material
+  tables?: TableData[];
+  steps?: string[];
+  rules?: string[];
+  sections?: MaterialSection[];
+  diagram?: string;
   // pedagogical extras
   keyTakeaway?: string;
   example?: string;
@@ -7207,6 +7224,258 @@ export const feedCards: FeedCard[] = [
     options: ['Mengawasi proses pelaporan keuangan', 'Menetapkan gaji dan tunjangan direksi', 'Menelaah efektivitas pengendalian internal', 'Mengevaluasi independensi dan kinerja auditor eksternal'],
     correctIndices: [0, 2, 3],
     explanation: 'Komite audit bertanggung jawab: mengawasi pelaporan keuangan, menelaah pengendalian internal, mengevaluasi auditor eksternal, dan menelaah kepatuhan peraturan. Penetapan remunerasi direksi adalah tugas komite remunerasi.',
+  },
+
+  // ===== GAAP MATERIAL CARDS (detailed study material) =====
+  {
+    id: 'gaap-mat-1',
+    type: 'material' as CardType,
+    subject: 'PSAK & Standar Akuntansi',
+    level: 'associate-ca',
+    difficulty: 'menengah',
+    title: 'Kerangka Konseptual — Karakteristik Kualitatif',
+    content: 'Karakteristik kualitatif informasi keuangan dibagi menjadi fundamental dan peningkat. Keduanya menentukan apakah informasi keuangan berguna bagi pengguna.',
+    tables: [
+      {
+        headers: ['Jenis', 'Karakteristik', 'Penjelasan'],
+        rows: [
+          ['Fundamental', 'Relevansi', 'Mampu membuat perbedaan dalam keputusan. Memiliki nilai prediktif dan/atau konfirmasi.'],
+          ['Fundamental', 'Representasi Tepat', 'Lengkap, netral, dan bebas dari kesalahan.'],
+          ['Peningkat', 'Keterbandingan', 'Persamaan & perbedaan antar entitas dan periode dapat diidentifikasi.'],
+          ['Peningkat', 'Keterverifikasian', 'Pengamat independen dapat mencapai konsensus.'],
+          ['Peningkat', 'Ketepatwaktuan', 'Tersedia tepat waktu untuk memengaruhi keputusan.'],
+          ['Peningkat', 'Keterpahaman', 'Disajikan secara jelas dan ringkas.'],
+        ],
+      },
+    ],
+    keyTakeaway: 'Relevansi dan Representasi Tepat adalah fundamental — tanpa keduanya, informasi tidak berguna. Karakteristik peningkat meningkatkan kegunaan tetapi tidak dapat menggantikan fundamental.',
+  },
+  {
+    id: 'gaap-mat-2',
+    type: 'material' as CardType,
+    subject: 'PSAK & Standar Akuntansi',
+    level: 'associate-ca',
+    difficulty: 'menengah',
+    title: 'PSAK 201 (IAS 1) — 5 Komponen Laporan Keuangan',
+    content: 'PSAK 201 menetapkan bahwa satu set lengkap laporan keuangan terdiri dari lima komponen wajib.',
+    tables: [
+      {
+        caption: 'Komponen Laporan Keuangan Lengkap',
+        headers: ['No', 'Komponen', 'Isi Utama'],
+        rows: [
+          ['1', 'Laporan Posisi Keuangan', 'Aset, liabilitas, ekuitas per tanggal pelaporan'],
+          ['2', 'Laporan Laba Rugi & OCI', 'Pendapatan, beban, laba rugi, dan penghasilan komprehensif lain'],
+          ['3', 'Laporan Perubahan Ekuitas', 'Total penghasilan komprehensif, transaksi dengan pemilik'],
+          ['4', 'Laporan Arus Kas', 'Arus kas operasi, investasi, pendanaan'],
+          ['5', 'Catatan atas Laporan Keuangan', 'Kebijakan akuntansi signifikan, informasi tambahan'],
+        ],
+      },
+    ],
+    rules: [
+      'Penyajian wajar (fair presentation) wajib diterapkan.',
+      'Basis akrual digunakan untuk semua komponen kecuali laporan arus kas.',
+      'Informasi komparatif minimal 2 periode.',
+      'Saling hapus (offsetting) aset-liabilitas dilarang kecuali diizinkan PSAK.',
+    ],
+    keyTakeaway: 'Jika menerapkan kebijakan akuntansi secara retrospektif, wajib menyajikan 3 neraca (awal periode komparatif paling awal).',
+  },
+  {
+    id: 'gaap-mat-3',
+    type: 'material' as CardType,
+    subject: 'PSAK & Standar Akuntansi',
+    level: 'associate-ca',
+    difficulty: 'lanjutan',
+    title: 'PSAK 109 (IFRS 9) — Klasifikasi Aset Keuangan',
+    content: 'Aset keuangan diklasifikasikan berdasarkan dua kriteria: model bisnis dan tes SPPI (Solely Payments of Principal and Interest).',
+    tables: [
+      {
+        caption: 'Klasifikasi Aset Keuangan',
+        headers: ['Kategori', 'Model Bisnis', 'SPPI Test', 'Pengukuran'],
+        rows: [
+          ['Amortized Cost', 'Hold to Collect', 'Lulus', 'Biaya perolehan diamortisasi'],
+          ['FVOCI', 'Hold to Collect AND Sell', 'Lulus', 'Nilai wajar, perubahan ke OCI'],
+          ['FVTPL', 'Lainnya / Designasi', 'Tidak lulus', 'Nilai wajar, perubahan ke laba rugi'],
+        ],
+      },
+    ],
+    diagram: 'Arus kas SPPI? → Ya → Model bisnis?\n  Hold to Collect → Amortized Cost\n  Hold & Sell → FVOCI\n  Lainnya → FVTPL\nArus kas SPPI? → Tidak → FVTPL',
+    keyTakeaway: 'ECL model: Stage 1 (12-month ECL), Stage 2 (Lifetime ECL, risiko naik), Stage 3 (Lifetime ECL, credit-impaired). Piutang usaha: simplified approach (lifetime ECL sejak awal).',
+  },
+  {
+    id: 'gaap-mat-4',
+    type: 'material' as CardType,
+    subject: 'PSAK & Standar Akuntansi',
+    level: 'associate-ca',
+    difficulty: 'menengah',
+    title: 'PSAK 115 (IFRS 15) — Model 5 Langkah Pendapatan',
+    content: 'PSAK 115 memperkenalkan model pengakuan pendapatan yang terstruktur dan konsisten melalui lima langkah.',
+    steps: [
+      'Identifikasi kontrak dengan pelanggan — persetujuan para pihak, hak dan kewajiban jelas.',
+      'Identifikasi kewajiban pelaksanaan — barang/jasa yang distinct (dapat dibedakan).',
+      'Tentukan harga transaksi — pertimbangkan imbalan variabel, komponen pembiayaan.',
+      'Alokasikan harga ke setiap kewajiban pelaksanaan — berdasarkan standalone selling price.',
+      'Akui pendapatan saat kewajiban pelaksanaan terpenuhi — point in time atau over time.',
+    ],
+    rules: [
+      'Over time jika: pelanggan menerima & mengonsumsi manfaat simultan, ATAU aset dikendalikan pelanggan, ATAU tidak ada penggunaan alternatif + hak atas pembayaran.',
+      'Point in time: jika tidak memenuhi kriteria over time.',
+    ],
+    keyTakeaway: 'PSAK 115 menggantikan PSAK 23 (Pendapatan) dan PSAK 34 (Kontrak Konstruksi). Satu model untuk semua jenis kontrak pelanggan.',
+  },
+  {
+    id: 'gaap-mat-5',
+    type: 'material' as CardType,
+    subject: 'PSAK & Standar Akuntansi',
+    level: 'associate-ca',
+    difficulty: 'menengah',
+    title: 'PSAK 116 (IFRS 16) — Dampak pada Laporan Keuangan',
+    content: 'PSAK 116 menghapus klasifikasi sewa operasi bagi penyewa. Semua sewa dikapitalisasi sebagai aset hak-guna dan liabilitas sewa.',
+    tables: [
+      {
+        caption: 'Dampak PSAK 116 pada Laporan Keuangan',
+        headers: ['Dampak', 'Penjelasan'],
+        rows: [
+          ['Aset ↑', 'Pengakuan Right-of-Use (ROU) Asset'],
+          ['Liabilitas ↑', 'Pengakuan Liabilitas Sewa'],
+          ['Beban sewa → Penyusutan + Bunga', 'Beban front-loaded (lebih besar di awal masa sewa)'],
+          ['Arus kas operasi ↑', 'Pembayaran pokok pindah ke aktivitas pendanaan'],
+          ['D/E ratio ↑', 'Penambahan liabilitas meningkatkan leverage'],
+          ['EBITDA ↑', 'Beban sewa tidak lagi mengurangi EBITDA'],
+        ],
+      },
+    ],
+    rules: [
+      'Pengecualian: Sewa jangka pendek (≤ 12 bulan) dan sewa aset bernilai rendah boleh dibebankan langsung.',
+      'Bagi pesewa (lessor): klasifikasi sewa operasi vs pembiayaan TETAP berlaku.',
+    ],
+    keyTakeaway: 'Liabilitas sewa = PV pembayaran sewa masa depan. ROU asset = liabilitas sewa + biaya langsung awal + pembayaran di muka − insentif sewa.',
+  },
+  {
+    id: 'gaap-mat-6',
+    type: 'material' as CardType,
+    subject: 'PSAK & Standar Akuntansi',
+    level: 'associate-ca',
+    difficulty: 'lanjutan',
+    title: 'PSAK 237 (IAS 37) — Provisi vs Liabilitas Kontinjensi',
+    content: 'PSAK 237 mengatur kapan mengakui provisi dan kapan hanya mengungkapkan liabilitas kontinjensi.',
+    tables: [
+      {
+        caption: 'Pohon Keputusan — Provisi',
+        headers: ['Kewajiban Kini?', 'Probable (>50%)?', 'Estimasi Andal?', 'Perlakuan'],
+        rows: [
+          ['Ya', 'Ya', 'Ya', 'PROVISI (akui di neraca)'],
+          ['Ya', 'Ya', 'Tidak', 'Liabilitas Kontinjensi (ungkapkan)'],
+          ['Ya', 'Tidak', '-', 'Liabilitas Kontinjensi (ungkapkan)'],
+          ['Possible', '-', '-', 'Liabilitas Kontinjensi (ungkapkan)'],
+          ['Remote', '-', '-', 'Tidak perlu pengakuan/pengungkapan'],
+        ],
+      },
+    ],
+    rules: [
+      '3 kriteria provisi: kewajiban kini dari peristiwa masa lalu + probable arus keluar + estimasi andal.',
+      'Aset kontinjensi: TIDAK PERNAH diakui, hanya diungkapkan jika probable.',
+      'Pengukuran: estimasi terbaik, didiskontokan jika efek nilai waktu uang signifikan.',
+    ],
+    example: 'Garansi produk: ada kewajiban kini (penjualan terjadi), probable klaim (dari data historis), estimasi andal → PROVISI. Gugatan hukum possible kalah → hanya UNGKAPKAN.',
+  },
+  {
+    id: 'gaap-mat-7',
+    type: 'material' as CardType,
+    subject: 'PSAK & Standar Akuntansi',
+    level: 'associate-ca',
+    difficulty: 'lanjutan',
+    title: 'PSAK 208 (IAS 8) — Perubahan Kebijakan vs Estimasi vs Kesalahan',
+    content: 'Penting membedakan jenis perubahan akuntansi karena perlakuannya berbeda secara fundamental.',
+    tables: [
+      {
+        caption: 'Perbandingan Perlakuan',
+        headers: ['Jenis', 'Penerapan', 'Sajian Ulang?', 'Contoh'],
+        rows: [
+          ['Perubahan Kebijakan', 'Retrospektif', 'Ya', 'FIFO → Rata-rata, Cost → Revaluasi'],
+          ['Perubahan Estimasi', 'Prospektif', 'Tidak', 'Ubah umur manfaat aset, ubah % piutang tak tertagih'],
+          ['Koreksi Kesalahan', 'Retrospektif', 'Ya', 'Salah hitung, kelalaian pencatatan, salah penerapan PSAK'],
+        ],
+      },
+    ],
+    keyTakeaway: 'Jika sulit membedakan perubahan kebijakan atau estimasi → perlakukan sebagai PERUBAHAN ESTIMASI (prospektif).',
+  },
+  {
+    id: 'gaap-mat-8',
+    type: 'material' as CardType,
+    subject: 'PSAK & Standar Akuntansi',
+    level: 'associate-ca',
+    difficulty: 'menengah',
+    title: 'PSAK 210 (IAS 10) — Peristiwa Setelah Tanggal Pelaporan',
+    content: 'Peristiwa antara tanggal pelaporan dan tanggal penerbitan laporan keuangan diklasifikasikan berdasarkan kondisi pada tanggal pelaporan.',
+    tables: [
+      {
+        caption: 'Peristiwa Penyesuai vs Non-Penyesuai',
+        headers: ['Jenis', 'Perlakuan', 'Contoh'],
+        rows: [
+          ['Penyesuai (Adjusting)', 'Sesuaikan angka di laporan keuangan', 'Penyelesaian perkara hukum, kebangkrutan pelanggan, penemuan kecurangan'],
+          ['Non-Penyesuai', 'Ungkapkan jika material, jangan sesuaikan angka', 'Akuisisi setelah tanggal pelaporan, bencana alam, perubahan tarif pajak'],
+        ],
+      },
+    ],
+    keyTakeaway: 'Pengecualian kritis: Jika setelah tanggal pelaporan entitas sudah tidak going concern, ini adalah peristiwa PENYESUAI — basis laporan keuangan harus diubah.',
+  },
+  {
+    id: 'gaap-mat-9',
+    type: 'material' as CardType,
+    subject: 'PSAK & Standar Akuntansi',
+    level: 'associate-ca',
+    difficulty: 'lanjutan',
+    title: 'Penomoran PSAK Baru (2024) & Hierarki SAK',
+    content: 'Sejak 2024, DSAK-IAI menerapkan sistem penomoran baru untuk memudahkan identifikasi asal standar.',
+    tables: [
+      {
+        caption: 'Sistem Penomoran PSAK Baru',
+        headers: ['Awalan', 'Asal Standar', 'Contoh'],
+        rows: [
+          ['1xx', 'IFRS (International Financial Reporting Standards)', 'PSAK 103 (IFRS 3), PSAK 109 (IFRS 9), PSAK 115 (IFRS 15)'],
+          ['2xx', 'IAS (International Accounting Standards)', 'PSAK 201 (IAS 1), PSAK 216 (IAS 16), PSAK 236 (IAS 36)'],
+          ['3xx', 'Standar Lokal Indonesia', 'Isu spesifik Indonesia tidak diatur IFRS'],
+          ['4xx', 'Standar Akuntansi Syariah', 'Transaksi berbasis syariah'],
+        ],
+      },
+      {
+        caption: '4 Pilar SAK Indonesia',
+        headers: ['SAK', 'Diterapkan Oleh', 'Basis'],
+        rows: [
+          ['SAK Umum', 'Entitas publik, bank, asuransi', 'Konvergensi IFRS'],
+          ['SAK EP (berlaku 2025)', 'Entitas privat tanpa akuntabilitas publik', 'IFRS for SMEs'],
+          ['SAK EMKM', 'Entitas mikro, kecil, menengah', 'Sederhana, biaya historis'],
+          ['SAK Syariah', 'Transaksi syariah', 'AAOIFI + lokal'],
+        ],
+      },
+    ],
+    keyTakeaway: 'Hierarki produk SAK: PSAK (standar utama) → ISAK (interpretasi) → PPSAK (pencabutan) → Buletin Teknis (panduan praktis).',
+  },
+  {
+    id: 'gaap-mat-10',
+    type: 'material' as CardType,
+    subject: 'PSAK & Standar Akuntansi',
+    level: 'associate-ca',
+    difficulty: 'lanjutan',
+    title: 'PSAK vs IFRS vs US GAAP — Perbedaan Kunci',
+    content: 'Meskipun Indonesia konvergensi IFRS, beberapa perbedaan dengan IFRS dan US GAAP perlu dipahami.',
+    tables: [
+      {
+        caption: 'Perbandingan PSAK, IFRS, US GAAP',
+        headers: ['Topik', 'PSAK/IFRS', 'US GAAP'],
+        rows: [
+          ['LIFO', 'Dilarang', 'Diperbolehkan'],
+          ['Revaluasi aset tetap', 'Diperbolehkan', 'Tidak diperbolehkan'],
+          ['R&D', 'Riset dibebankan, Pengembangan dikapitalisasi (6 kriteria)', 'Selalu dibebankan (kecuali software)'],
+          ['Pemulihan impairment', 'Diperbolehkan (kecuali goodwill)', 'Tidak diperbolehkan'],
+          ['Goodwill', 'Tidak diamortisasi, uji penurunan tahunan', 'Amortisasi opsional (entitas privat)'],
+          ['Sewa (lessee)', 'Satu model: kapitalisasi semua sewa', 'Dua model: finance + operating lease'],
+          ['Pendapatan', 'Model 5 langkah (identik)', 'Model 5 langkah (identik)'],
+          ['Extraordinary items', 'Tidak diperbolehkan', 'Tidak diperbolehkan (sejak 2015)'],
+        ],
+      },
+    ],
+    keyTakeaway: 'PSAK Indonesia = konvergensi IFRS. Perbedaan utama dengan US GAAP: LIFO, revaluasi, R&D, impairment reversal.',
   },
 ];
 
