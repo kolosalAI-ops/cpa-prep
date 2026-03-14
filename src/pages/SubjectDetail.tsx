@@ -2,7 +2,9 @@ import { useParams, Link } from 'react-router-dom';
 import { useState, useRef, useEffect } from 'react';
 import { subjects, feedCards } from '../content/feedData';
 import FeedCardRenderer from '../components/cards/FeedCardRenderer';
-import { ChevronUp, ChevronDown, ArrowLeft, Flame, BookOpen } from 'lucide-react';
+import { ChevronUp, ChevronDown, ArrowLeft, BookOpen, Flame } from 'lucide-react';
+import SubjectIcon from '../components/cards/SubjectIcon';
+import { useProgress } from '../context/ProgressContext';
 
 export default function SubjectDetail() {
   const { subjectId } = useParams<{ subjectId: string }>();
@@ -10,6 +12,7 @@ export default function SubjectDetail() {
   const cards = feedCards.filter(c => subject && c.subject === subject.title);
   const [activeIndex, setActiveIndex] = useState(0);
   const containerRef = useRef<HTMLDivElement>(null);
+  const { recordCardStudied } = useProgress();
 
   useEffect(() => {
     const container = containerRef.current;
@@ -21,6 +24,13 @@ export default function SubjectDetail() {
     container.addEventListener('scroll', handleScroll, { passive: true });
     return () => container.removeEventListener('scroll', handleScroll);
   }, []);
+
+  // Record card studied when slide changes (offset by 1 for header slide)
+  useEffect(() => {
+    if (activeIndex > 0 && subjectId) {
+      recordCardStudied(subjectId);
+    }
+  }, [activeIndex, subjectId, recordCardStudied]);
 
   const scrollToIndex = (index: number) => {
     const container = containerRef.current;
@@ -41,14 +51,12 @@ export default function SubjectDetail() {
     <div ref={containerRef} className="k-feed">
       {/* Header slide */}
       <div className="k-feed-slide">
-        <div className="k-feed-slide-inner" style={{ justifyContent: 'center' }}>
-          <div className="k-card" style={{ textAlign: 'center' }}>
-            <div style={{ fontSize: '3rem', marginBottom: '0.5rem' }}>{subject.icon}</div>
-            <h2 className="k-card-title" style={{ fontSize: '1.5rem' }}>{subject.title}</h2>
-            <p className="k-subject-detail-count" style={{ marginTop: '0.5rem' }}>
-              {cards.length} kartu belajar
-            </p>
-            <Link to="/subjects" style={{ marginTop: '1rem', display: 'inline-flex', alignItems: 'center', gap: '0.25rem' }}>
+        <div className="k-feed-slide-inner k-feed-slide-inner--center">
+          <div className="k-card k-card--center">
+            <SubjectIcon id={subjectId!} size={48} />
+            <h2 className="k-card-title">{subject.title}</h2>
+            <p className="k-subject-detail-count">{cards.length} kartu belajar</p>
+            <Link to="/subjects" className="k-subject-detail-back">
               <ArrowLeft size={16} /> Kembali
             </Link>
             <Link to={`/subjects/${subjectId}/formal`} className="k-formal-btn">

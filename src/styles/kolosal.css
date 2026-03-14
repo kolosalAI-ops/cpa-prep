@@ -496,6 +496,8 @@
   overscroll-behavior: contain;
   touch-action: pan-y;
 }
+.k-feed-slide-inner--center { justify-content: center; }
+.k-card--center { text-align: center; }
 
 /* ---- Counter ---- */
 .k-counter {
