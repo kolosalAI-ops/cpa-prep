@@ -2,6 +2,8 @@ import { Link } from 'react-router-dom';
 import { subjects, feedCards } from '../content/feedData';
 import type { ExamLevel } from '../content/feedData';
 import { BookOpen } from 'lucide-react';
+import SubjectIcon from '../components/cards/SubjectIcon';
+import { useProgress } from '../context/ProgressContext';
 
 const levelLabels: Record<ExamLevel, string> = {
   'cafb': 'Level 1 — CAFB',
@@ -10,6 +12,8 @@ const levelLabels: Record<ExamLevel, string> = {
 };
 
 export default function SubjectList() {
+  const { subjectProgress } = useProgress();
+
   const grouped = subjects.reduce((acc, s) => {
     const lvl = ('level' in s && s.level) ? s.level as ExamLevel : 'other';
     if (!acc[lvl]) acc[lvl] = [];
@@ -33,14 +37,24 @@ export default function SubjectList() {
             <div className="k-subject-items">
               {items.map((subject) => {
                 const count = feedCards.filter(c => c.subject === subject.title).length;
+                const progress = subjectProgress[subject.id];
+                const pct = progress && progress.total > 0
+                  ? Math.min(100, Math.round((progress.studied / progress.total) * 100))
+                  : 0;
                 return (
                   <div key={subject.id} className="k-subject-item-row">
                     <Link to={`/subjects/${subject.id}`} className="k-subject-link">
                       <span className="k-subject-name">
-                        <span>{subject.icon}</span>
+                        <SubjectIcon id={subject.id} size={16} />
                         {subject.title}
                       </span>
-                      <span className="k-subject-count">{count} kartu</span>
+                      <span className="k-subject-right">
+                        <span className="k-subject-count">{count} kartu</span>
+                        <div className="k-progress-bar">
+                          <div className="k-progress-fill" style={{ width: `${pct}%` }} />
+                        </div>
+                        <span className="k-subject-pct">{pct}%</span>
+                      </span>
                     </Link>
                     <Link
                       to={`/subjects/${subject.id}/formal`}

@@ -1155,6 +1155,9 @@
   white-space: nowrap;
 }
 
+.k-subject-right { display: flex; align-items: center; gap: 8px; }
+.k-subject-pct   { font-size: 0.6875rem; color: var(--color-text-500); min-width: 28px; text-align: right; }
+
 .k-subject-level-label {
   font-size: 10px;
   font-weight: 700;
