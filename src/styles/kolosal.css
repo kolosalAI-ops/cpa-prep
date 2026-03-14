@@ -1040,6 +1040,14 @@
   color: var(--color-text-900);
 }
 
+.k-info-toggle {
+  display: flex; align-items: center; gap: 6px;
+  background: none; border: none; cursor: pointer;
+  color: var(--color-text-600); font-size: 0.875rem; font-weight: 600;
+  padding: 0; width: 100%;
+}
+.k-info-toggle:hover { color: var(--color-text-800); }
+
 .k-info-box-items {
   display: flex;
   flex-direction: column;

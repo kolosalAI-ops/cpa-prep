@@ -1,31 +1,84 @@
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { Flame, Target, CheckCircle, Zap, BookOpen, Info, ChevronDown, ChevronUp } from 'lucide-react';
+import { useProgress } from '../context/ProgressContext';
+import { subjects } from '../content/feedData';
 
 export default function Home() {
+  const { streak, accuracy, totalCardsStudied, subjectProgress, lastSubjectId } = useProgress();
+  const [showInfo, setShowInfo] = useState(false);
+
+  const lastSubject = lastSubjectId ? subjects.find(s => s.id === lastSubjectId) : null;
+  const remaining = lastSubjectId && subjectProgress[lastSubjectId]
+    ? subjectProgress[lastSubjectId].total - subjectProgress[lastSubjectId].studied
+    : 0;
+
   return (
     <div className="k-home">
-      <div className="k-hero">
-        <h2>Selamat Datang! 🇮🇩</h2>
-        <p>Siap melanjutkan persiapan CA Indonesia?</p>
+      {/* Stats row */}
+      <div className="k-stats-row">
+        <div className="k-stat-card">
+          <div className="k-stat-icon"><Flame size={20} /></div>
+          <div className="k-stat-val">{streak}</div>
+          <div className="k-stat-label">Hari Beruntun</div>
+        </div>
+        <div className="k-stat-card">
+          <div className="k-stat-icon"><Target size={20} /></div>
+          <div className="k-stat-val">{accuracy}%</div>
+          <div className="k-stat-label">Akurasi Quiz</div>
+        </div>
+        <div className="k-stat-card">
+          <div className="k-stat-icon"><CheckCircle size={20} /></div>
+          <div className="k-stat-val">{totalCardsStudied}</div>
+          <div className="k-stat-label">Kartu Selesai</div>
+        </div>
       </div>
 
+      {/* Hero CTA */}
+      {lastSubject ? (
+        <Link to={`/subjects/${lastSubjectId}`} className="k-hero-cta">
+          <div className="k-hero-cta-eyebrow">Lanjut Belajar</div>
+          <div className="k-hero-cta-title">{lastSubject.title}{remaining > 0 ? ` — ${remaining} kartu tersisa` : ''}</div>
+          <span className="k-hero-cta-btn">Mulai Sekarang →</span>
+        </Link>
+      ) : (
+        <Link to="/subjects" className="k-hero-cta-empty">
+          Mulai belajar — pilih mata ujian
+        </Link>
+      )}
+
+      {/* Quick links */}
       <div className="k-home-grid">
         <Link to="/feed" className="k-home-link k-home-link-primary">
-          <h3>⚡ Feed</h3>
-          <p>Scroll & belajar</p>
+          <Zap size={20} />
+          <h3>Feed</h3>
+          <p>Scroll &amp; belajar</p>
         </Link>
         <Link to="/subjects" className="k-home-link k-home-link-secondary">
-          <h3>📚 Mata Ujian</h3>
-          <p>Jelajahi per subjek</p>
+          <BookOpen size={20} />
+          <h3>Mata Ujian</h3>
+          <p>Semua level</p>
         </Link>
       </div>
 
+      {/* Collapsible info */}
       <div className="k-info-box">
-        <h3>Info Ujian CA</h3>
-        <div className="k-info-box-items">
-          <p>📋 <strong>3 Level</strong>: CAFB → Associate CA → Chartered Accountant</p>
-          <p>📝 <strong>12 Mata Ujian</strong> total di semua level</p>
-          <p>⏰ <strong>Masa berlaku</strong>: 3 tahun per mata ujian</p>
-        </div>
+        <button
+          className="k-info-toggle"
+          onClick={() => setShowInfo(v => !v)}
+          aria-expanded={showInfo}
+        >
+          <Info size={16} />
+          <span>Info Ujian CA</span>
+          {showInfo ? <ChevronUp size={14} /> : <ChevronDown size={14} />}
+        </button>
+        {showInfo && (
+          <div className="k-info-box-items">
+            <p><strong>3 Level</strong>: CAFB → Associate CA → Chartered Accountant</p>
+            <p><strong>12 Mata Ujian</strong> total di semua level</p>
+            <p><strong>Masa berlaku</strong>: 3 tahun per mata ujian</p>
+          </div>
+        )}
       </div>
     </div>
   );
