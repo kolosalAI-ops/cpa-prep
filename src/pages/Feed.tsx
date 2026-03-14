@@ -131,7 +131,7 @@ export default function Feed() {
           <div className="k-feed-slide-inner">
             <div className="k-counter">
               <div className="k-counter-text">
-                <Flame size={14} style={{ color: 'var(--color-warning-500)' }} />
+                <Flame size={14} className="k-counter-flame" />
                 {index + 1} / {cards.length}
               </div>
               <div className="k-dots">

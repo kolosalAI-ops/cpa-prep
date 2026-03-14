@@ -45,10 +45,10 @@ export default function SubjectDetail() {
           <div className="k-card" style={{ textAlign: 'center' }}>
             <div style={{ fontSize: '3rem', marginBottom: '0.5rem' }}>{subject.icon}</div>
             <h2 className="k-card-title" style={{ fontSize: '1.5rem' }}>{subject.title}</h2>
-            <p style={{ color: 'var(--color-neutral-500)', marginTop: '0.5rem' }}>
+            <p className="k-subject-detail-count" style={{ marginTop: '0.5rem' }}>
               {cards.length} kartu belajar
             </p>
-            <Link to="/subjects" style={{ color: 'var(--color-primary-500)', marginTop: '1rem', display: 'inline-flex', alignItems: 'center', gap: '0.25rem' }}>
+            <Link to="/subjects" style={{ marginTop: '1rem', display: 'inline-flex', alignItems: 'center', gap: '0.25rem' }}>
               <ArrowLeft size={16} /> Kembali
             </Link>
             <Link to={`/subjects/${subjectId}/formal`} className="k-formal-btn">
@@ -72,7 +72,7 @@ export default function SubjectDetail() {
           <div className="k-feed-slide-inner">
             <div className="k-counter">
               <div className="k-counter-text">
-                <Flame size={14} style={{ color: 'var(--color-warning-500)' }} />
+                <Flame size={14} className="k-counter-flame" />
                 {index + 1} / {cards.length}
               </div>
               <div className="k-dots">
