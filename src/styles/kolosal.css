@@ -1863,6 +1863,11 @@
   border-radius: var(--radius-md);
 }
 
+@media (prefers-reduced-motion: reduce) {
+  .k-feed-slide-inner > .k-card { animation: none; }
+  .k-shimmer { animation: none; }
+}
+
 /* ============================================
    HOME DASHBOARD
    ============================================ */
@@ -1986,8 +1991,6 @@
 .k-quiz-check-icon  { color: var(--color-accent-mid); }
 .k-quiz-feedback    { margin-top: 16px; }
 .k-card-body--quiz  { margin-bottom: 8px; }
-.k-quiz-option      { transition: border-color var(--transition-fast), background var(--transition-fast); }
-
 /* ============================================
    FLASHCARD 3D FLIP
    ============================================ */
