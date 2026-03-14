@@ -1,5 +1,21 @@
 import { useState, type FormEvent } from 'react';
+import { Eye, EyeOff } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
+
+function CaLogoMark() {
+  return (
+    <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <linearGradient id="ca-grad" x1="0" y1="0" x2="48" y2="48" gradientUnits="userSpaceOnUse">
+          <stop offset="0%" stopColor="#1077E3" />
+          <stop offset="100%" stopColor="#045DC1" />
+        </linearGradient>
+      </defs>
+      <rect width="48" height="48" rx="12" fill="url(#ca-grad)" />
+      <text x="24" y="31" fontSize="22" fontWeight="800" fill="white" textAnchor="middle" fontFamily="system-ui, -apple-system, sans-serif">CA</text>
+    </svg>
+  );
+}
 
 export default function Login() {
   const { login, error } = useAuth();
@@ -16,8 +32,8 @@ export default function Login() {
     <div className="k-login-page">
       <div className="k-login-card">
         <div className="k-login-header">
-          <span className="k-login-logo">🇮🇩</span>
-          <h1>CA Prep</h1>
+          <CaLogoMark />
+          <h1 className="k-login-brand">CA Prep</h1>
           <p>Masuk untuk melanjutkan belajar</p>
         </div>
         <form onSubmit={handleSubmit} className="k-login-form">
@@ -51,7 +67,7 @@ export default function Login() {
                 onClick={() => setShowPassword(v => !v)}
                 aria-label={showPassword ? 'Sembunyikan password' : 'Tampilkan password'}
               >
-                {showPassword ? '🙈' : '👁️'}
+                {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
               </button>
             </div>
           </div>
