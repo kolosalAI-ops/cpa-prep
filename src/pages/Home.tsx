@@ -1,11 +1,12 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Flame, Target, CheckCircle, Zap, BookOpen, Info, ChevronDown, ChevronUp } from 'lucide-react';
+import { Flame, Target, CheckCircle, Zap, BookOpen, Info, ChevronDown, ChevronUp, FileText, Flag } from 'lucide-react';
 import { useProgress } from '../context/ProgressContext';
 import { subjects } from '../content/feedData';
 
 export default function Home() {
-  const { streak, accuracy, totalCardsStudied, subjectProgress, lastSubjectId } = useProgress();
+  const { streak, accuracy, totalCardsStudied, subjectProgress, lastSubjectId, flaggedCardIds, wrongCardIds } = useProgress();
+  const reviewCount = new Set([...flaggedCardIds, ...wrongCardIds]).size;
   const [showInfo, setShowInfo] = useState(false);
 
   const lastSubject = lastSubjectId ? subjects.find(s => s.id === lastSubjectId) : null;
@@ -47,6 +48,15 @@ export default function Home() {
         </Link>
       )}
 
+      {/* Review banner */}
+      {reviewCount > 0 && (
+        <Link to="/review" className="k-review-banner">
+          <Flag size={16} />
+          <span><strong>{reviewCount} kartu</strong> perlu direview</span>
+          <span className="k-review-banner-arrow">→</span>
+        </Link>
+      )}
+
       {/* Quick links */}
       <div className="k-home-grid">
         <Link to="/feed" className="k-home-link k-home-link-primary">
@@ -58,6 +68,13 @@ export default function Home() {
           <BookOpen size={20} />
           <h3>Mata Ujian</h3>
           <p>Semua level</p>
+        </Link>
+        <Link to="/subjects" className="k-home-link k-home-link-formal">
+          <FileText size={20} />
+          <div>
+            <h3>Materi Formal</h3>
+            <p>Referensi lengkap</p>
+          </div>
         </Link>
       </div>
 

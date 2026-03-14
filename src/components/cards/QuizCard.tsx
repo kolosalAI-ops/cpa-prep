@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Square, CheckSquare, CheckCircle, XCircle, Search, Lightbulb, Bookmark } from 'lucide-react';
+import { Square, CheckSquare, CheckCircle, XCircle, Search, Lightbulb, Bookmark, Flag } from 'lucide-react';
 import type { FeedCard } from '../../content/feedData';
 import { useProgress } from '../../context/ProgressContext';
 
@@ -8,7 +8,7 @@ export default function QuizCard({ card }: { card: FeedCard }) {
   const [selected, setSelected] = useState<number | null>(null);
   const [multiSelected, setMultiSelected] = useState<Set<number>>(new Set());
   const [submitted, setSubmitted] = useState(false);
-  const { recordQuizAnswer } = useProgress();
+  const { recordQuizAnswer, toggleFlag, flaggedCardIds } = useProgress();
 
   const answered = isMulti ? submitted : selected !== null;
   const isCorrectSingle = selected === card.correctIndex;
@@ -16,11 +16,12 @@ export default function QuizCard({ card }: { card: FeedCard }) {
     ? card.correctIndices!.length === multiSelected.size && card.correctIndices!.every(i => multiSelected.has(i))
     : false;
   const isCorrect = isMulti ? isCorrectMulti : isCorrectSingle;
+  const isFlagged = flaggedCardIds.includes(card.id);
 
   const handleSingleSelect = (i: number) => {
     if (selected !== null) return;
     setSelected(i);
-    recordQuizAnswer(i === card.correctIndex);
+    recordQuizAnswer(i === card.correctIndex, card.id);
   };
 
   const toggleMulti = (i: number) => {
@@ -33,11 +34,11 @@ export default function QuizCard({ card }: { card: FeedCard }) {
   };
 
   const handleSubmitMulti = () => {
-    setSubmitted(true);
-    recordQuizAnswer(
+    const correct =
       card.correctIndices!.length === multiSelected.size &&
-      card.correctIndices!.every(i => multiSelected.has(i))
-    );
+      card.correctIndices!.every(i => multiSelected.has(i));
+    setSubmitted(true);
+    recordQuizAnswer(correct, card.id);
   };
 
   const correctLabel = isMulti
@@ -127,6 +128,13 @@ export default function QuizCard({ card }: { card: FeedCard }) {
               {card.keyTakeaway}
             </div>
           )}
+          <button
+            className={`k-flag-btn ${isFlagged ? 'k-flag-btn--active' : ''}`}
+            onClick={() => toggleFlag(card.id)}
+          >
+            <Flag size={14} />
+            {isFlagged ? 'Ditandai' : 'Tandai untuk review'}
+          </button>
         </div>
       )}
     </div>

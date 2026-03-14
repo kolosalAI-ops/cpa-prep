@@ -1011,6 +1011,23 @@
   color: var(--color-text-900);
 }
 
+.k-home-link-formal {
+  background: var(--color-bg-tertiary);
+  border: 1px solid var(--color-border);
+  color: var(--color-text-900);
+  grid-column: 1 / -1;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 12px;
+}
+.k-home-link-formal h3 {
+  margin: 0;
+}
+.k-home-link-formal p {
+  margin: 0;
+}
+
 .k-home-link h3 {
   font-size: 17px;
   font-weight: 600;
@@ -1023,7 +1040,8 @@
   opacity: 0.85;
 }
 
-.k-home-link-secondary p {
+.k-home-link-secondary p,
+.k-home-link-formal p {
   color: var(--color-text-600);
 }
 
@@ -2048,3 +2066,213 @@
   transition: opacity var(--transition-fast), transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 .k-nav-link-active .k-nav-dot { opacity: 1; transform: scale(1); }
+
+/* ============================================
+   FLAG BUTTON
+   ============================================ */
+
+.k-flag-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 12px;
+  padding: 7px 14px;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--color-border);
+  background: var(--color-bg-secondary);
+  color: var(--color-text-500);
+  font-size: 0.75rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+.k-flag-btn:hover {
+  border-color: var(--color-accent-mid);
+  color: var(--color-accent-mid);
+}
+.k-flag-btn--active {
+  background: rgba(124, 58, 237, 0.12);
+  border-color: var(--color-accent-mid);
+  color: var(--color-accent-mid);
+}
+
+/* ============================================
+   REVIEW BANNER (Home)
+   ============================================ */
+
+.k-review-banner {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 16px;
+  margin-bottom: 12px;
+  background: rgba(124, 58, 237, 0.1);
+  border: 1px solid rgba(124, 58, 237, 0.25);
+  border-radius: var(--radius-lg);
+  text-decoration: none;
+  color: var(--color-accent-mid);
+  font-size: 0.875rem;
+  transition: background var(--transition-fast);
+}
+.k-review-banner:hover {
+  background: rgba(124, 58, 237, 0.18);
+}
+.k-review-banner-arrow {
+  margin-left: auto;
+  font-weight: 700;
+}
+
+/* ============================================
+   REVIEW MODE LABEL (counter bar)
+   ============================================ */
+
+.k-review-mode-label {
+  font-size: 0.6875rem;
+  font-weight: 700;
+  color: var(--color-accent-mid);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* ============================================
+   REVIEW EMPTY STATE
+   ============================================ */
+
+.k-review-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  padding: 40px 24px;
+  text-align: center;
+  gap: 12px;
+}
+.k-review-empty-icon {
+  color: var(--color-accent-mid);
+  opacity: 0.6;
+}
+.k-review-empty h2 {
+  font-size: 1.125rem;
+  font-weight: 700;
+  color: var(--color-text-900);
+  margin: 0;
+}
+.k-review-empty p {
+  font-size: 0.875rem;
+  color: var(--color-text-500);
+  margin: 0;
+  line-height: 1.5;
+}
+.k-review-empty-back {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 8px;
+  padding: 9px 18px;
+  background: var(--color-accent);
+  color: #fff;
+  border-radius: var(--radius-md);
+  text-decoration: none;
+  font-size: 0.875rem;
+  font-weight: 600;
+}
+
+/* ============================================
+   SEARCH BAR (SubjectList)
+   ============================================ */
+
+.k-search-bar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--color-bg-tertiary);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: 10px 14px;
+  margin-bottom: 10px;
+}
+.k-search-icon {
+  color: var(--color-text-400);
+  flex-shrink: 0;
+}
+.k-search-input {
+  flex: 1;
+  background: none;
+  border: none;
+  outline: none;
+  font-size: 0.9375rem;
+  color: var(--color-text-900);
+  font-family: inherit;
+}
+.k-search-input::placeholder {
+  color: var(--color-text-400);
+}
+.k-search-clear {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--color-text-400);
+  padding: 2px;
+  display: flex;
+  align-items: center;
+}
+.k-search-clear:hover {
+  color: var(--color-text-700);
+}
+.k-search-results-count {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--color-text-400);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 12px;
+}
+.k-search-result-item {
+  margin-bottom: 12px;
+}
+.k-search-empty {
+  text-align: center;
+  padding: 32px 0;
+  color: var(--color-text-400);
+  font-size: 0.875rem;
+}
+
+/* ============================================
+   DIFFICULTY FILTER CHIPS
+   ============================================ */
+
+.k-filter-chips {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 16px;
+  flex-wrap: wrap;
+}
+.k-filter-chips--centered {
+  justify-content: center;
+  margin-top: 12px;
+  margin-bottom: 0;
+}
+.k-filter-chip {
+  padding: 5px 14px;
+  border-radius: 999px;
+  border: 1px solid var(--color-border);
+  background: var(--color-bg-tertiary);
+  color: var(--color-text-500);
+  font-size: 0.75rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+.k-filter-chip:hover {
+  border-color: var(--color-accent-mid);
+  color: var(--color-accent-mid);
+}
+.k-filter-chip--active {
+  background: var(--color-accent);
+  border-color: var(--color-accent);
+  color: #fff;
+}
+.k-filter-chip-dasar.k-filter-chip--active    { background: #16a34a; border-color: #16a34a; }
+.k-filter-chip-menengah.k-filter-chip--active  { background: #d97706; border-color: #d97706; }
+.k-filter-chip-lanjutan.k-filter-chip--active  { background: #dc2626; border-color: #dc2626; }

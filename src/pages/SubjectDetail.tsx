@@ -6,10 +6,18 @@ import { ChevronUp, ChevronDown, ArrowLeft, BookOpen, Flame } from 'lucide-react
 import SubjectIcon from '../components/cards/SubjectIcon';
 import { useProgress } from '../context/ProgressContext';
 
+type Difficulty = 'dasar' | 'menengah' | 'lanjutan';
+const DIFFICULTIES: Difficulty[] = ['dasar', 'menengah', 'lanjutan'];
+const difficultyLabels: Record<Difficulty, string> = { dasar: 'Dasar', menengah: 'Menengah', lanjutan: 'Lanjutan' };
+
 export default function SubjectDetail() {
   const { subjectId } = useParams<{ subjectId: string }>();
   const subject = subjects.find(s => s.id === subjectId);
-  const cards = feedCards.filter(c => subject && c.subject === subject.title);
+  const [activeDifficulty, setActiveDifficulty] = useState<Difficulty | null>(null);
+  const allCards = feedCards.filter(c => subject && c.subject === subject.title);
+  const cards = activeDifficulty
+    ? allCards.filter(c => c.difficulty === activeDifficulty)
+    : allCards;
   const [activeIndex, setActiveIndex] = useState(0);
   const containerRef = useRef<HTMLDivElement>(null);
   const { recordCardStudied } = useProgress();
@@ -55,7 +63,10 @@ export default function SubjectDetail() {
           <div className="k-card k-card--center">
             <SubjectIcon id={subjectId!} size={48} />
             <h2 className="k-card-title">{subject.title}</h2>
-            <p className="k-subject-detail-count">{cards.length} kartu belajar</p>
+            <p className="k-subject-detail-count">
+              {cards.length} kartu belajar
+              {activeDifficulty && ` (filter: ${difficultyLabels[activeDifficulty]})`}
+            </p>
             <Link to="/subjects" className="k-subject-detail-back">
               <ArrowLeft size={16} /> Kembali
             </Link>
@@ -63,6 +74,17 @@ export default function SubjectDetail() {
               <BookOpen size={16} />
               Materi Formal
             </Link>
+            <div className="k-filter-chips k-filter-chips--centered">
+              {DIFFICULTIES.map(d => (
+                <button
+                  key={d}
+                  className={`k-filter-chip k-filter-chip-${d} ${activeDifficulty === d ? 'k-filter-chip--active' : ''}`}
+                  onClick={e => { e.stopPropagation(); setActiveDifficulty(prev => prev === d ? null : d); setActiveIndex(0); }}
+                >
+                  {difficultyLabels[d]}
+                </button>
+              ))}
+            </div>
           </div>
           <div className="k-swipe-hint">
             <ChevronUp size={20} />

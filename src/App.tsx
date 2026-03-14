@@ -5,6 +5,7 @@ import Feed from './pages/Feed';
 import SubjectList from './pages/SubjectList';
 import SubjectDetail from './pages/SubjectDetail';
 import FormalMaterial from './pages/FormalMaterial';
+import Review from './pages/Review';
 import Login from './pages/Login';
 import { useAuth } from './context/AuthContext';
 import { ProgressProvider } from './context/ProgressContext';
@@ -25,6 +26,7 @@ function App() {
           <Route path="subjects" element={<SubjectList />} />
           <Route path="subjects/:subjectId" element={<SubjectDetail />} />
           <Route path="subjects/:subjectId/formal" element={<FormalMaterial />} />
+          <Route path="review" element={<Review />} />
           <Route path="*" element={<div className="k-not-found">Not Found</div>} />
         </Route>
       </Routes>

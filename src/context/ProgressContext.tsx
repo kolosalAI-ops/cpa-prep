@@ -9,6 +9,8 @@ interface ProgressState {
   quizTotal: number;
   subjectProgress: Record<string, { studied: number; total: number }>;
   lastSubjectId: string | null;
+  flaggedCardIds: string[];
+  wrongCardIds: string[];
 }
 
 interface ProgressContextValue {
@@ -17,8 +19,11 @@ interface ProgressContextValue {
   accuracy: number;
   subjectProgress: Record<string, { studied: number; total: number }>;
   lastSubjectId: string | null;
+  flaggedCardIds: string[];
+  wrongCardIds: string[];
   recordCardStudied: (subjectId: string) => void;
-  recordQuizAnswer: (correct: boolean) => void;
+  recordQuizAnswer: (correct: boolean, cardId?: string) => void;
+  toggleFlag: (cardId: string) => void;
 }
 
 const ProgressContext = createContext<ProgressContextValue | null>(null);
@@ -34,6 +39,8 @@ function buildInitialState(stored: Partial<ProgressState> = {}): ProgressState {
     quizTotal: stored.quizTotal ?? 0,
     subjectProgress: stored.subjectProgress ?? {},
     lastSubjectId: stored.lastSubjectId ?? null,
+    flaggedCardIds: stored.flaggedCardIds ?? [],
+    wrongCardIds: stored.wrongCardIds ?? [],
   };
   // Always recompute totals from content data so they're never stale
   subjects.forEach(s => {
@@ -70,7 +77,7 @@ export function ProgressProvider({ children }: { children: ReactNode }) {
 
   const recordCardStudied = useCallback((subjectId: string) => {
     setState(prev => {
-      if (!(subjectId in prev.subjectProgress)) return prev; // ignore unknown ids
+      if (!(subjectId in prev.subjectProgress)) return prev;
       const today = getToday();
       const entry = prev.subjectProgress[subjectId];
       const newStudied = Math.min(entry.studied + 1, entry.total);
@@ -97,12 +104,27 @@ export function ProgressProvider({ children }: { children: ReactNode }) {
     });
   }, []);
 
-  const recordQuizAnswer = useCallback((correct: boolean) => {
-    setState(prev => ({
-      ...prev,
-      quizTotal: prev.quizTotal + 1,
-      quizCorrect: correct ? prev.quizCorrect + 1 : prev.quizCorrect,
-    }));
+  const recordQuizAnswer = useCallback((correct: boolean, cardId?: string) => {
+    setState(prev => {
+      const wrongCardIds = (!correct && cardId && !prev.wrongCardIds.includes(cardId))
+        ? [...prev.wrongCardIds, cardId]
+        : prev.wrongCardIds;
+      return {
+        ...prev,
+        quizTotal: prev.quizTotal + 1,
+        quizCorrect: correct ? prev.quizCorrect + 1 : prev.quizCorrect,
+        wrongCardIds,
+      };
+    });
+  }, []);
+
+  const toggleFlag = useCallback((cardId: string) => {
+    setState(prev => {
+      const flaggedCardIds = prev.flaggedCardIds.includes(cardId)
+        ? prev.flaggedCardIds.filter(id => id !== cardId)
+        : [...prev.flaggedCardIds, cardId];
+      return { ...prev, flaggedCardIds };
+    });
   }, []);
 
   const accuracy = state.quizTotal > 0
@@ -116,8 +138,11 @@ export function ProgressProvider({ children }: { children: ReactNode }) {
       accuracy,
       subjectProgress: state.subjectProgress,
       lastSubjectId: state.lastSubjectId,
+      flaggedCardIds: state.flaggedCardIds,
+      wrongCardIds: state.wrongCardIds,
       recordCardStudied,
       recordQuizAnswer,
+      toggleFlag,
     }}>
       {children}
     </ProgressContext.Provider>

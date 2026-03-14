@@ -1,9 +1,12 @@
 import { useState } from 'react';
-import { ChevronDown, ChevronUp, Bookmark, Lightbulb, Brain } from 'lucide-react';
+import { ChevronDown, ChevronUp, Bookmark, Lightbulb, Brain, Flag } from 'lucide-react';
 import type { FeedCard } from '../../content/feedData';
+import { useProgress } from '../../context/ProgressContext';
 
 export default function FlashCard({ card }: { card: FeedCard }) {
   const [flipped, setFlipped] = useState(false);
+  const { toggleFlag, flaggedCardIds } = useProgress();
+  const isFlagged = flaggedCardIds.includes(card.id);
 
   return (
     <div
@@ -55,6 +58,13 @@ export default function FlashCard({ card }: { card: FeedCard }) {
               {card.keyTakeaway}
             </div>
           )}
+          <button
+            className={`k-flag-btn ${isFlagged ? 'k-flag-btn--active' : ''}`}
+            onClick={e => { e.stopPropagation(); toggleFlag(card.id); }}
+          >
+            <Flag size={14} />
+            {isFlagged ? 'Ditandai' : 'Tandai untuk review'}
+          </button>
           <div className="k-flashcard-hint">
             <span className="k-tap-hint"><ChevronUp size={14} /> Tap untuk lihat soal</span>
           </div>
