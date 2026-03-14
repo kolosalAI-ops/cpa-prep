@@ -1,12 +1,14 @@
 import { useState, useEffect, useRef, useCallback } from 'react';
-import { generateFeedBatch } from '../content/feedData';
+import { generateFeedBatch, subjects } from '../content/feedData';
 import type { FeedCard } from '../content/feedData';
 import FeedCardRenderer from '../components/cards/FeedCardRenderer';
 import { Flame, ChevronUp, ChevronDown } from 'lucide-react';
+import { useProgress } from '../context/ProgressContext';
 
 export default function Feed() {
   const [cards, setCards] = useState<FeedCard[]>([]);
   const [activeIndex, setActiveIndex] = useState(0);
+  const { recordCardStudied } = useProgress();
   const existingIdsRef = useRef(new Set<string>());
   const containerRef = useRef<HTMLDivElement>(null);
   const loadingRef = useRef(false);
@@ -123,6 +125,14 @@ export default function Feed() {
     window.addEventListener('resize', onResize);
     return () => window.removeEventListener('resize', onResize);
   }, [activeIndex]);
+
+  // Record card studied when active card changes
+  useEffect(() => {
+    const card = cards[activeIndex];
+    if (!card) return;
+    const subjectId = subjects.find(s => s.title === card.subject)?.id;
+    if (subjectId) recordCardStudied(subjectId);
+  }, [activeIndex, cards, recordCardStudied]);
 
   return (
     <div ref={containerRef} className="k-feed">
