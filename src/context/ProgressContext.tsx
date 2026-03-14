@@ -124,6 +124,7 @@ export function ProgressProvider({ children }: { children: ReactNode }) {
   );
 }
 
+// eslint-disable-next-line react-refresh/only-export-components
 export function useProgress(): ProgressContextValue {
   const ctx = useContext(ProgressContext);
   if (!ctx) throw new Error('useProgress must be used inside <ProgressProvider>');
