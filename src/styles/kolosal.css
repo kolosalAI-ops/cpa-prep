@@ -1836,3 +1836,198 @@
 .k-formal-back-link:hover {
   text-decoration: underline;
 }
+
+/* ============================================
+   ANIMATIONS
+   ============================================ */
+
+@keyframes k-card-in {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes shimmer {
+  0%   { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+/* Scope animation to feed slides only — using .k-feed-slide-inner > .k-card
+   prevents re-animation on every React re-render of non-feed cards */
+.k-feed-slide-inner > .k-card { animation: k-card-in 0.25s ease; }
+
+.k-shimmer {
+  background: linear-gradient(90deg, var(--color-bg-tertiary) 25%, var(--color-border) 50%, var(--color-bg-tertiary) 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+  border-radius: var(--radius-md);
+}
+
+/* ============================================
+   HOME DASHBOARD
+   ============================================ */
+
+.k-stats-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.k-stat-card {
+  background: var(--color-bg-tertiary);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: 12px 8px;
+  text-align: center;
+}
+
+.k-stat-icon { color: var(--color-accent-mid); margin-bottom: 4px; display: flex; justify-content: center; }
+.k-stat-val  { font-size: 1.5rem; font-weight: 800; color: var(--color-text-900); line-height: 1; }
+.k-stat-label{ font-size: 0.6875rem; color: var(--color-text-500); margin-top: 4px; font-weight: 500; }
+
+/* Hero CTA */
+.k-hero-cta {
+  background: linear-gradient(135deg, var(--color-accent) 0%, var(--color-accent-hover) 100%);
+  border-radius: var(--radius-xl);
+  padding: 16px;
+  position: relative;
+  overflow: hidden;
+  margin-bottom: 12px;
+  text-decoration: none;
+  display: block;
+}
+.k-hero-cta::after {
+  content: '';
+  position: absolute;
+  right: -24px; top: -24px;
+  width: 96px; height: 96px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.08);
+  pointer-events: none;
+}
+.k-hero-cta-eyebrow {
+  font-size: 0.6875rem; font-weight: 700;
+  color: rgba(255,255,255,0.7);
+  letter-spacing: 0.5px; text-transform: uppercase; margin-bottom: 4px;
+}
+.k-hero-cta-title {
+  font-size: 1rem; font-weight: 800;
+  color: #fff; margin-bottom: 10px; line-height: 1.3;
+}
+.k-hero-cta-btn {
+  background: rgba(255,255,255,0.2);
+  border: 1px solid rgba(255,255,255,0.25);
+  color: #fff; font-size: 0.75rem; font-weight: 700;
+  padding: 6px 12px; border-radius: var(--radius-md);
+  display: inline-block; text-decoration: none;
+}
+.k-hero-cta-empty {
+  background: var(--color-bg-tertiary);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-xl);
+  padding: 16px; text-align: center;
+  color: var(--color-text-500); font-size: 0.875rem;
+  margin-bottom: 12px;
+  display: block;
+  text-decoration: none;
+}
+
+/* ============================================
+   PROGRESS BARS
+   ============================================ */
+
+.k-progress-bar {
+  height: 4px;
+  background: var(--color-border);
+  border-radius: 2px;
+  overflow: hidden;
+  width: 48px;
+}
+.k-progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--color-accent), var(--color-accent-mid));
+  border-radius: 2px;
+  transition: width var(--transition-base);
+}
+
+/* ============================================
+   FORMULA BLOCKS (FormalMaterial)
+   ============================================ */
+
+.k-formula-block {
+  background: var(--color-bg);
+  border: 1px solid var(--color-border);
+  border-left: 3px solid var(--color-accent-mid);
+  border-radius: var(--radius-md);
+  padding: 12px 14px;
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 0.8125rem;
+  color: var(--color-accent-mid);
+  white-space: pre-wrap;
+  margin: 12px 0;
+}
+.k-formula-block-label {
+  display: flex; align-items: center; gap: 6px;
+  font-size: 0.6875rem; font-weight: 700;
+  color: var(--color-text-500);
+  text-transform: uppercase; letter-spacing: 0.5px;
+  margin-bottom: 6px;
+}
+
+/* ============================================
+   QUIZ CARD
+   ============================================ */
+
+.k-quiz-options     { display: flex; flex-direction: column; gap: 8px; }
+.k-quiz-hint        { font-size: 0.75rem; color: var(--color-text-400); margin: 0 0 8px; font-style: italic; }
+.k-quiz-submit      { margin-top: 12px; padding: 10px 24px; border-radius: var(--radius-md); border: none; background: var(--color-accent); color: #fff; font-weight: 600; cursor: pointer; width: 100%; font-size: 0.875rem; transition: background var(--transition-fast); }
+.k-quiz-submit:hover{ background: var(--color-accent-hover); }
+.k-quiz-check-icon  { color: var(--color-accent-mid); }
+.k-quiz-feedback    { margin-top: 16px; }
+.k-card-body--quiz  { margin-bottom: 8px; }
+.k-quiz-option      { transition: border-color var(--transition-fast), background var(--transition-fast); }
+
+/* ============================================
+   FLASHCARD 3D FLIP
+   ============================================ */
+
+.k-flashcard { perspective: 800px; overflow: visible !important; }
+.k-flashcard-inner {
+  position: relative;
+  transform-style: preserve-3d;
+  transition: transform 0.35s ease;
+  min-height: 260px;
+}
+.k-flashcard--flipped .k-flashcard-inner { transform: rotateY(180deg); }
+.k-flashcard-front,
+.k-flashcard-back {
+  position: absolute; inset: 0;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  overflow-y: auto;
+}
+.k-flashcard-back  { transform: rotateY(180deg); }
+.k-flashcard-hint  { text-align: center; margin-top: 16px; }
+
+/* ============================================
+   MISC UTILITIES
+   ============================================ */
+
+/* SubjectDetail helpers */
+.k-subject-detail-back  { color: var(--color-accent-mid); display: inline-flex; align-items: center; gap: 4px; margin-top: 12px; text-decoration: none; }
+
+/* Login brand heading */
+.k-login-brand { font-size: 1.5rem; font-weight: 800; color: var(--color-text-900); margin: 6px 0 4px; letter-spacing: -0.5px; }
+
+/* Nav active dot */
+.k-nav-dot {
+  display: block;
+  width: 4px; height: 4px;
+  border-radius: 50%;
+  background: var(--color-accent-mid);
+  margin: 3px auto 0;
+  opacity: 0;
+  transform: scale(0.5);
+  transition: opacity var(--transition-fast), transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+.k-nav-link-active .k-nav-dot { opacity: 1; transform: scale(1); }
