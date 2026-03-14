@@ -7,6 +7,7 @@ import SubjectDetail from './pages/SubjectDetail';
 import FormalMaterial from './pages/FormalMaterial';
 import Login from './pages/Login';
 import { useAuth } from './context/AuthContext';
+import { ProgressProvider } from './context/ProgressContext';
 
 function App() {
   const { isAuthenticated } = useAuth();
@@ -16,17 +17,18 @@ function App() {
   }
 
   return (
-    <Routes>
-      <Route path="/" element={<Layout />}>
-        <Route index element={<Home />} />
-        <Route path="feed" element={<Feed />} />
-        <Route path="subjects" element={<SubjectList />} />
-        <Route path="subjects/:subjectId" element={<SubjectDetail />} />
-        <Route path="subjects/:subjectId/formal" element={<FormalMaterial />} />
-        <Route path="topics" element={<SubjectList />} />
-        <Route path="*" element={<div className="k-not-found">Not Found</div>} />
-      </Route>
-    </Routes>
+    <ProgressProvider>
+      <Routes>
+        <Route path="/" element={<Layout />}>
+          <Route index element={<Home />} />
+          <Route path="feed" element={<Feed />} />
+          <Route path="subjects" element={<SubjectList />} />
+          <Route path="subjects/:subjectId" element={<SubjectDetail />} />
+          <Route path="subjects/:subjectId/formal" element={<FormalMaterial />} />
+          <Route path="*" element={<div className="k-not-found">Not Found</div>} />
+        </Route>
+      </Routes>
+    </ProgressProvider>
   );
 }
 
