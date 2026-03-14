@@ -3,7 +3,12 @@ import { useState, useEffect, useCallback } from 'react';
 import { subjects } from '../content/feedData';
 import { formalMaterials } from '../content/formalData';
 import type { FormalSection } from '../content/formalData';
-import { ArrowLeft, ChevronLeft, ChevronRight, BookOpen, List } from 'lucide-react';
+import {
+  ArrowLeft, ChevronLeft, ChevronRight, BookOpen, List,
+  AlertTriangle, Lightbulb, Bookmark, ListOrdered,
+  ClipboardList, BarChart2, Hash,
+} from 'lucide-react';
+import SubjectIcon from '../components/cards/SubjectIcon';
 
 function SectionRenderer({ section }: { section: FormalSection }) {
   return (
@@ -13,18 +18,20 @@ function SectionRenderer({ section }: { section: FormalSection }) {
 
       {section.rules && section.rules.length > 0 && (
         <div className="k-formal-rules">
-          <div className="k-formal-rules-label">📋 Aturan / Ketentuan</div>
+          <div className="k-formal-rules-label">
+            <ClipboardList size={14} /> Aturan / Ketentuan
+          </div>
           <ul>
-            {section.rules.map((rule, i) => (
-              <li key={i}>{rule}</li>
-            ))}
+            {section.rules.map((rule, i) => <li key={i}>{rule}</li>)}
           </ul>
         </div>
       )}
 
       {section.steps && section.steps.length > 0 && (
         <div className="k-formal-steps">
-          <div className="k-formal-steps-label">🔢 Langkah-langkah</div>
+          <div className="k-formal-steps-label">
+            <ListOrdered size={14} /> Langkah-langkah
+          </div>
           <ol>
             {section.steps.map((step, i) => (
               <li key={i}>
@@ -63,22 +70,22 @@ function SectionRenderer({ section }: { section: FormalSection }) {
       ))}
 
       {section.formula && (
-        <div className="k-formal-formula">
-          <div className="k-formal-formula-label">🔣 Rumus</div>
-          <pre>{section.formula}</pre>
+        <div>
+          <div className="k-formula-block-label"><Hash size={14} /> Rumus</div>
+          <div className="k-formula-block">{section.formula}</div>
         </div>
       )}
 
       {section.diagram && (
         <div className="k-formal-diagram">
-          <div className="k-formal-diagram-label">📊 Diagram</div>
+          <div className="k-formal-diagram-label"><BarChart2 size={14} /> Diagram</div>
           <pre>{section.diagram}</pre>
         </div>
       )}
 
       {section.examples && section.examples.length > 0 && (
         <div className="k-formal-examples">
-          <div className="k-formal-examples-label">📌 Contoh</div>
+          <div className="k-formal-examples-label"><Bookmark size={14} /> Contoh</div>
           {section.examples.map((ex, i) => (
             <div key={i} className="k-formal-example-item">{ex}</div>
           ))}
@@ -88,13 +95,17 @@ function SectionRenderer({ section }: { section: FormalSection }) {
       {section.notes && section.notes.length > 0 && (
         <div className="k-formal-notes">
           {section.notes.map((note, i) => (
-            <div key={i} className="k-formal-note-item">💡 {note}</div>
+            <div key={i} className="k-formal-note-item">
+              <Lightbulb size={14} /> {note}
+            </div>
           ))}
         </div>
       )}
 
       {section.warning && (
-        <div className="k-formal-warning">⚠️ {section.warning}</div>
+        <div className="k-formal-warning">
+          <AlertTriangle size={14} /> {section.warning}
+        </div>
       )}
     </div>
   );
@@ -157,7 +168,7 @@ export default function FormalMaterial() {
           )}
         </div>
         <div className="k-formal-title-row">
-          <span className="k-formal-icon">{subject.icon}</span>
+          <SubjectIcon id={subjectId!} size={32} className="k-formal-icon" />
           <div>
             <h2 className="k-formal-title">{subject.title}</h2>
             <p className="k-formal-subtitle">
@@ -176,7 +187,7 @@ export default function FormalMaterial() {
       {showToc && material && (
         <div className="k-formal-toc-overlay" onClick={() => setShowToc(false)}>
           <div className="k-formal-toc-panel" onClick={(e) => e.stopPropagation()}>
-            <div className="k-formal-toc-label">📑 Daftar Isi</div>
+            <div className="k-formal-toc-label"><List size={16} /> Daftar Isi</div>
             {material.chapters.map((ch, i) => (
               <button
                 key={ch.id}
@@ -196,7 +207,7 @@ export default function FormalMaterial() {
         {chapter ? (
           <div className="k-formal-page">
             <div className="k-formal-chapter-header">
-              <span className="k-formal-chapter-number">Bab {currentPage + 1}</span>
+              <span className="k-formal-chapter-number">BAB {currentPage + 1}</span>
               <h2 className="k-formal-chapter-title">{chapter.title}</h2>
               <p className="k-formal-chapter-desc">{chapter.description}</p>
             </div>
@@ -206,9 +217,9 @@ export default function FormalMaterial() {
           </div>
         ) : (
           <div className="k-formal-empty">
-            <p>📝 Materi formal untuk mata ujian ini sedang dalam pengembangan.</p>
+            <p><BookOpen size={16} /> Materi formal untuk mata ujian ini sedang dalam pengembangan.</p>
             <Link to={`/subjects/${subjectId}`} className="k-formal-back-link">
-              ← Kembali ke mode kartu belajar
+              <ArrowLeft size={14} /> Kembali ke mode kartu belajar
             </Link>
           </div>
         )}
