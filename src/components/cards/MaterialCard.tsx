@@ -1,3 +1,4 @@
+import { Bookmark, Lightbulb, Brain, BookOpen, ClipboardList, ListOrdered, BarChart2, BookMarked } from 'lucide-react';
 import type { FeedCard } from '../../content/feedData';
 
 export default function MaterialCard({ card }: { card: FeedCard }) {
@@ -8,7 +9,7 @@ export default function MaterialCard({ card }: { card: FeedCard }) {
         {card.difficulty && (
           <span className={`k-difficulty k-difficulty-${card.difficulty}`}>{card.difficulty}</span>
         )}
-        <span className="k-type-label" style={{ marginLeft: 'auto' }}>📘 Materi</span>
+        <span className="k-type-label"><BookOpen size={12} /> Materi</span>
       </div>
       <h3 className="k-card-title">{card.title}</h3>
       <p className="k-card-body">{card.content}</p>
@@ -22,18 +23,16 @@ export default function MaterialCard({ card }: { card: FeedCard }) {
 
       {card.rules && card.rules.length > 0 && (
         <div className="k-material-rules">
-          <div className="k-material-rules-label">📋 Aturan / Ketentuan</div>
+          <div className="k-material-rules-label"><ClipboardList size={14} /> Aturan / Ketentuan</div>
           <ul className="k-material-rules-list">
-            {card.rules.map((rule, i) => (
-              <li key={i}>{rule}</li>
-            ))}
+            {card.rules.map((rule, i) => <li key={i}>{rule}</li>)}
           </ul>
         </div>
       )}
 
       {card.steps && card.steps.length > 0 && (
         <div className="k-material-steps">
-          <div className="k-material-steps-label">🔢 Langkah-langkah</div>
+          <div className="k-material-steps-label"><ListOrdered size={14} /> Langkah-langkah</div>
           <ol className="k-material-steps-list">
             {card.steps.map((step, i) => (
               <li key={i}>
@@ -51,19 +50,11 @@ export default function MaterialCard({ card }: { card: FeedCard }) {
           <div className="k-material-table-scroll">
             <table className="k-material-table">
               <thead>
-                <tr>
-                  {table.headers.map((h, i) => (
-                    <th key={i}>{h}</th>
-                  ))}
-                </tr>
+                <tr>{table.headers.map((h, i) => <th key={i}>{h}</th>)}</tr>
               </thead>
               <tbody>
                 {table.rows.map((row, ri) => (
-                  <tr key={ri}>
-                    {row.map((cell, ci) => (
-                      <td key={ci}>{cell}</td>
-                    ))}
-                  </tr>
+                  <tr key={ri}>{row.map((cell, ci) => <td key={ci}>{cell}</td>)}</tr>
                 ))}
               </tbody>
             </table>
@@ -73,31 +64,31 @@ export default function MaterialCard({ card }: { card: FeedCard }) {
 
       {card.diagram && (
         <div className="k-material-diagram">
-          <div className="k-material-diagram-label">📊 Diagram</div>
+          <div className="k-material-diagram-label"><BarChart2 size={14} /> Diagram</div>
           <pre className="k-material-diagram-content">{card.diagram}</pre>
         </div>
       )}
 
       {card.example && (
         <div className="k-example">
-          <div className="k-example-label">📌 Contoh</div>
+          <div className="k-example-label"><Bookmark size={14} /> Contoh</div>
           {card.example}
         </div>
       )}
 
       {card.mnemonic && (
-        <div className="k-mnemonic">🧠 {card.mnemonic}</div>
+        <div className="k-mnemonic"><Brain size={14} /> {card.mnemonic}</div>
       )}
 
       {card.keyTakeaway && (
         <div className="k-takeaway">
-          <div className="k-takeaway-label">💡 Poin Kunci</div>
+          <div className="k-takeaway-label"><Lightbulb size={14} /> Poin Kunci</div>
           {card.keyTakeaway}
         </div>
       )}
 
       {card.source && (
-        <p className="k-source">📚 {card.source}</p>
+        <p className="k-source"><BookMarked size={14} /> {card.source}</p>
       )}
     </div>
   );
