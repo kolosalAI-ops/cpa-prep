@@ -114,11 +114,12 @@
 
 /* ---- Card Type Label ---- */
 .k-type-label {
-  font-size: 11px;
+  margin-left: auto;
+  font-size: 0.6875rem;
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.5px;
-  color: var(--color-text-600);
+  color: var(--color-text-500);
 }
 
 /* ---- Card Header ---- */
