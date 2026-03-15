@@ -22,7 +22,6 @@ export const enrichedFeedCards4: FeedCard[] = [
     correctIndex: 0,
     explanation:
       'Biaya entertainment tanpa daftar nominatif tidak dapat diakui sebagai pengurang penghasilan bruto (non-deductible expense). Oleh karena itu dilakukan koreksi positif yang menambah laba fiskal sebesar Rp 50.000.000.',
-    difficulty: 'menengah',
   },
 
   // 2. Quiz — Rekonsiliasi fiskal: koreksi negatif
@@ -44,7 +43,6 @@ export const enrichedFeedCards4: FeedCard[] = [
     correctIndex: 0,
     explanation:
       'Berdasarkan Pasal 4 ayat (3) UU PPh, dividen yang diterima dari badan dalam negeri dengan kepemilikan minimal 25% dikecualikan dari objek pajak. Karena sudah masuk laba komersial, dilakukan koreksi negatif untuk mengurangi penghasilan kena pajak.',
-    difficulty: 'menengah',
   },
 
   // 3. Quiz — Perhitungan PPh Badan terutang
@@ -66,7 +64,6 @@ export const enrichedFeedCards4: FeedCard[] = [
     correctIndex: 1,
     explanation:
       'Tarif PPh Badan umum adalah 22%. Perusahaan publik yang minimal 40% sahamnya diperdagangkan di bursa mendapat pengurangan tarif 3% sehingga tarifnya menjadi 19%. PPh terutang = 19% x Rp 10.000.000.000 = Rp 1.900.000.000.',
-    difficulty: 'lanjutan',
   },
 
   // 4. Flashcard — Pajak tangguhan DTA
@@ -81,7 +78,6 @@ export const enrichedFeedCards4: FeedCard[] = [
       'Apa yang dimaksud dengan Deferred Tax Asset (Aset Pajak Tangguhan) dan kapan timbul?',
     answer:
       'Deferred Tax Asset (DTA) adalah aset yang timbul ketika beban pajak tangguhan yang diakui secara akuntansi lebih kecil dari kewajiban pajak yang harus dibayar saat ini, atau ketika terdapat beda waktu yang menyebabkan laba fiskal lebih besar dari laba komersial pada periode berjalan. DTA mencerminkan manfaat pajak yang akan diterima di masa depan. Contoh: rugi fiskal yang dapat dikompensasi ke depan (tax loss carryforward), atau penyisihan piutang tak tertagih yang belum diakui fiskal.',
-    difficulty: 'menengah',
   },
 
   // 5. Quiz — Pajak tangguhan DTL
@@ -103,7 +99,6 @@ export const enrichedFeedCards4: FeedCard[] = [
     correctIndex: 2,
     explanation:
       'Penyusutan fiskal (Rp 25 juta) lebih besar dari komersial (Rp 10 juta), sehingga laba fiskal lebih kecil dan PPh kini lebih rendah. Selisih beda waktu Rp 15 juta akan berbalik di masa depan (fiskal akan lebih tinggi). Pajak tangguhan yang timbul adalah DTL = 22% x Rp 15.000.000 = Rp 3.300.000.',
-    difficulty: 'menengah',
   },
 
   // 6. Quiz — PPN mekanisme kredit pajak masukan
@@ -125,7 +120,6 @@ export const enrichedFeedCards4: FeedCard[] = [
     correctIndex: 1,
     explanation:
       'PPN Kurang Bayar = Pajak Keluaran - Pajak Masukan = Rp 45.000.000 - Rp 30.000.000 = Rp 15.000.000. Karena Pajak Keluaran lebih besar, PKP wajib menyetorkan selisihnya ke kas negara paling lambat akhir bulan berikutnya sebelum SPT dilaporkan.',
-    difficulty: 'menengah',
   },
 
   // 7. Flashcard — Syarat formal dan material faktur pajak
@@ -140,7 +134,6 @@ export const enrichedFeedCards4: FeedCard[] = [
       'Sebutkan perbedaan syarat formal dan syarat material faktur pajak serta akibat jika salah satu tidak terpenuhi.',
     answer:
       'Syarat formal: faktur pajak harus memuat informasi yang ditetapkan (nama, NPWP penjual & pembeli, nomor seri faktur pajak, tanggal, BKP/JKP, jumlah harga, PPN). Syarat material: barang/jasa yang tertera benar-benar diserahkan dan transaksi sungguh-sungguh terjadi. Jika syarat formal tidak lengkap, faktur disebut faktur pajak cacat dan pajak masukannya tidak dapat dikreditkan. Jika syarat material tidak terpenuhi (faktur fiktif), selain tidak dapat dikreditkan, dapat dikenai sanksi pidana perpajakan.',
-    difficulty: 'menengah',
   },
 
   // 8. Quiz — SPT Masa PPN batas waktu
@@ -162,7 +155,6 @@ export const enrichedFeedCards4: FeedCard[] = [
     correctIndex: 1,
     explanation:
       'Berdasarkan peraturan perpajakan, PPN Kurang Bayar harus disetor paling lambat tanggal 25 bulan berikutnya (25 April untuk masa Maret), dan SPT Masa PPN harus dilaporkan paling lambat akhir bulan berikutnya (30 April).',
-    difficulty: 'dasar',
   },
 
   // 9. Quiz — Withholding tax PPh 23
@@ -184,7 +176,6 @@ export const enrichedFeedCards4: FeedCard[] = [
     correctIndex: 0,
     explanation:
       'Jasa konsultasi manajemen termasuk objek PPh Pasal 23 dengan tarif 2% dari jumlah bruto. PPh 23 = 2% x Rp 50.000.000 = Rp 1.000.000. PT Andika wajib memotong, menyetor, dan melaporkan pemotongan tersebut.',
-    difficulty: 'menengah',
   },
 
   // 10. Flashcard — PPh 26 withholding tax
@@ -199,7 +190,6 @@ export const enrichedFeedCards4: FeedCard[] = [
       'Jelaskan objek dan tarif PPh Pasal 26 serta bagaimana perjanjian penghindaran pajak berganda (P3B/tax treaty) mempengaruhi pemungutannya.',
     answer:
       'PPh Pasal 26 dikenakan atas penghasilan yang bersumber dari Indonesia yang diterima Wajib Pajak Luar Negeri selain BUT (Bentuk Usaha Tetap), seperti dividen, bunga, royalti, imbalan jasa, dan premi asuransi. Tarif umum adalah 20% dari jumlah bruto. Apabila Indonesia memiliki P3B dengan negara domisili penerima penghasilan, tarif dapat dikurangi (misalnya 10% atau 15% untuk dividen/bunga/royalti tergantung P3B) atau bahkan dibebaskan. Syarat penerapan P3B: penerima penghasilan harus menyerahkan Certificate of Domicile (SKD/Form DGT) yang valid.',
-    difficulty: 'lanjutan',
   },
 
   // ===== AUDIT & ASURANS (10 cards) =====
@@ -223,7 +213,6 @@ export const enrichedFeedCards4: FeedCard[] = [
     correctIndex: 0,
     explanation:
       'Sufficiency mengukur kuantitas bukti — 500/510 merupakan cakupan sangat tinggi. Appropriateness mengukur relevansi dan keandalan — konfirmasi dari pihak eksternal independen merupakan bukti berkualitas tinggi karena tidak dikendalikan klien. Kombinasi keduanya menghasilkan bukti yang cukup dan tepat.',
-    difficulty: 'menengah',
   },
 
   // 12. Quiz — Asersi manajemen: keberadaan vs kelengkapan
@@ -245,7 +234,6 @@ export const enrichedFeedCards4: FeedCard[] = [
     correctIndex: 1,
     explanation:
       'Prosedur dari catatan ke fisik menguji asersi keberadaan (existence): apakah aset yang tercatat dalam laporan keuangan memang ada secara fisik. Sebaliknya, dari fisik ke catatan akan menguji asersi kelengkapan (completeness): apakah aset yang ada telah seluruhnya dicatat.',
-    difficulty: 'menengah',
   },
 
   // 13. Flashcard — Lima asersi manajemen
@@ -260,7 +248,6 @@ export const enrichedFeedCards4: FeedCard[] = [
       'Sebutkan dan jelaskan lima asersi manajemen yang menjadi dasar pengujian audit atas saldo akun dan transaksi.',
     answer:
       '1. Keberadaan/Keterjadian (Existence/Occurrence): aset, liabilitas, dan ekuitas yang tercatat benar-benar ada; transaksi yang dicatat sungguh-sungguh terjadi. 2. Kelengkapan (Completeness): semua aset, liabilitas, transaksi yang seharusnya dicatat telah dicatat — tidak ada yang dihilangkan. 3. Penilaian dan Alokasi (Valuation & Allocation): aset, liabilitas, dan ekuitas disajikan pada nilai yang tepat sesuai standar akuntansi. 4. Hak dan Kewajiban (Rights & Obligations): entitas memiliki hak atas aset yang dicatat dan berkewajiban atas liabilitas yang dicatat. 5. Penyajian dan Pengungkapan (Presentation & Disclosure): komponen laporan keuangan diklasifikasikan, diungkapkan, dan dijelaskan secara tepat.',
-    difficulty: 'dasar',
   },
 
   // 14. Quiz — Prosedur substantif vs pengujian pengendalian
@@ -282,7 +269,6 @@ export const enrichedFeedCards4: FeedCard[] = [
     correctIndex: 1,
     explanation:
       'Pengujian pengendalian (test of controls) bertujuan mengevaluasi apakah pengendalian internal beroperasi efektif sepanjang periode. Memeriksa tanda tangan otorisasi adalah bukti bahwa pengendalian otorisasi berjalan. Prosedur substantif justru langsung menguji angka dalam laporan keuangan (saldo atau transaksi).',
-    difficulty: 'menengah',
   },
 
   // 15. Quiz — Materialitas: planning vs performance
@@ -304,7 +290,6 @@ export const enrichedFeedCards4: FeedCard[] = [
     correctIndex: 1,
     explanation:
       'Performance materiality ditetapkan di bawah planning materiality untuk mengantisipasi kemungkinan adanya salah saji yang tidak terdeteksi di berbagai akun secara bersamaan. Jika setiap akun diuji sampai batas planning materiality, akumulasi salah saji dari berbagai akun bisa melampaui ambang materialitas keseluruhan tanpa terdeteksi.',
-    difficulty: 'lanjutan',
   },
 
   // 16. Flashcard — Komponen risiko audit
@@ -319,7 +304,6 @@ export const enrichedFeedCards4: FeedCard[] = [
       'Jelaskan tiga komponen risiko audit dan hubungan matematisnya.',
     answer:
       'Risiko Audit (Audit Risk/AR) = Risiko Bawaan (Inherent Risk/IR) x Risiko Pengendalian (Control Risk/CR) x Risiko Deteksi (Detection Risk/DR). Inherent Risk: kemungkinan suatu asersi mengandung salah saji material tanpa mempertimbangkan pengendalian — dipengaruhi sifat akun dan industri. Control Risk: kemungkinan salah saji tidak dicegah atau dideteksi oleh pengendalian internal klien — dievaluasi melalui pengujian pengendalian. Detection Risk: kemungkinan prosedur auditor gagal mendeteksi salah saji yang ada — satu-satunya komponen yang dapat dikendalikan auditor dengan menyesuaikan luas dan sifat prosedur substantif. Semakin tinggi IR dan CR, semakin rendah DR yang dapat diterima (prosedur substantif harus lebih luas).',
-    difficulty: 'menengah',
   },
 
   // 17. Quiz — Opini auditor WTP/WDP
@@ -341,7 +325,6 @@ export const enrichedFeedCards4: FeedCard[] = [
     correctIndex: 1,
     explanation:
       'Ketiadaan pengungkapan pihak berelasi yang material adalah penyimpangan dari PSAK, tetapi dampaknya terlokalisir (bukan pervasif). Opini yang tepat adalah WDP (qualified opinion) dengan paragraf pengecualian yang menjelaskan penyimpangan tersebut. Opini Tidak Wajar digunakan bila dampak penyimpangan bersifat material dan pervasif terhadap laporan keuangan secara keseluruhan.',
-    difficulty: 'menengah',
   },
 
   // 18. Quiz — Key Audit Matters (KAM)
@@ -363,7 +346,6 @@ export const enrichedFeedCards4: FeedCard[] = [
     correctIndex: 2,
     explanation:
       'KAM adalah hal-hal yang menurut pertimbangan profesional auditor paling signifikan dalam audit periode berjalan, dipilih dari hal-hal yang dikomunikasikan ke TCWG. Ketidakpatuhan terhadap regulasi tidak secara otomatis menjadi KAM kecuali memiliki signifikansi audit yang tinggi. KAM bukan daftar temuan kepatuhan — ia berfokus pada area dengan kompleksitas atau risiko audit tertinggi.',
-    difficulty: 'lanjutan',
   },
 
   // 19. Flashcard — Opini menolak memberikan pendapat
@@ -378,7 +360,6 @@ export const enrichedFeedCards4: FeedCard[] = [
       'Kapan auditor mengeluarkan opini menolak (disclaimer of opinion) dan apa bedanya dengan opini tidak wajar (adverse opinion)?',
     answer:
       'Opini Menolak diberikan ketika auditor tidak dapat memperoleh bukti audit yang cukup dan tepat (pembatasan ruang lingkup) sehingga tidak mampu menyimpulkan apakah laporan keuangan disajikan secara wajar — dan dampak ketidakmampuan tersebut diyakini material serta pervasif. Opini Tidak Wajar (adverse) diberikan ketika auditor telah memperoleh bukti yang cukup dan menyimpulkan bahwa laporan keuangan mengandung salah saji yang material dan pervasif akibat ketidaksesuaian dengan standar akuntansi. Perbedaan kunci: disclaimer = auditor tidak tahu; adverse = auditor tahu dan laporan keuangan salah secara material dan menyeluruh.',
-    difficulty: 'lanjutan',
   },
 
   // 20. Quiz — Asersi penilaian dan prosedur yang tepat
@@ -400,6 +381,5 @@ export const enrichedFeedCards4: FeedCard[] = [
     correctIndex: 2,
     explanation:
       'Asersi penilaian untuk piutang usaha berkaitan dengan apakah piutang dicatat pada nilai yang dapat direalisasi (net realizable value). Prosedur yang paling relevan adalah mengevaluasi kelayakan cadangan kerugian penurunan nilai melalui analisis aging schedule dan riwayat penagihan. Konfirmasi menguji keberadaan; menelusuri faktur menguji kelengkapan; otorisasi kredit menguji pengendalian.',
-    difficulty: 'lanjutan',
   },
 ];
