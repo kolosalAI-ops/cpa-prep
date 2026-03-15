@@ -1,3 +1,7 @@
+import { pengantarAkuntansiExtraChapters, akuntansiKeuanganDasarExtraChapters, manajemenBisnisExtraChapters, ekonomiStatistikExtraChapters } from './formal-enrich-cafb';
+import { pelaporanKorporatExtraChapters, manajemenKeuanganExtraChapters, manajemenPerpajakanExtraChapters, auditAsuransExtraChapters, akuntansiManajemenExtraChapters } from './formal-enrich-assoc';
+import { manajemenStratejikExtraChapters, etikaTataKelolaExtraChapters, studiKasusExtraChapters, psakStandarExtraChapters, strategiUjianExtraChapters } from './formal-enrich-ca';
+
 export interface FormalTableData {
   headers: string[];
   rows: string[][];
@@ -5466,3 +5470,25 @@ export const formalMaterials: FormalMaterial[] = [
 ],
   },
 ];
+
+// Merge enriched chapters into each subject
+const _extraChapterMap: Record<string, FormalChapter[]> = {
+  'pengantar-akuntansi': pengantarAkuntansiExtraChapters,
+  'akuntansi-keuangan-dasar': akuntansiKeuanganDasarExtraChapters,
+  'manajemen-bisnis-dasar': manajemenBisnisExtraChapters,
+  'ekonomi-statistik': ekonomiStatistikExtraChapters,
+  'pelaporan-korporat': pelaporanKorporatExtraChapters,
+  'manajemen-keuangan': manajemenKeuanganExtraChapters,
+  'manajemen-perpajakan': manajemenPerpajakanExtraChapters,
+  'audit-asurans': auditAsuransExtraChapters,
+  'akuntansi-manajemen': akuntansiManajemenExtraChapters,
+  'manajemen-stratejik': manajemenStratejikExtraChapters,
+  'etika-tata-kelola': etikaTataKelolaExtraChapters,
+  'studi-kasus-terpadu': studiKasusExtraChapters,
+  'psak-standar': psakStandarExtraChapters,
+  'strategi-ujian': strategiUjianExtraChapters,
+};
+formalMaterials.forEach(m => {
+  const extra = _extraChapterMap[m.subjectId];
+  if (extra) m.chapters.push(...extra);
+});

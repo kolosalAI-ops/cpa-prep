@@ -1,3 +1,11 @@
+import { enrichedFeedCards1 } from './feed-enrich-1';
+import { enrichedFeedCards2 } from './feed-enrich-2';
+import { enrichedFeedCards3 } from './feed-enrich-3';
+import { enrichedFeedCards4 } from './feed-enrich-4';
+import { enrichedFeedCards5 } from './feed-enrich-5';
+import { enrichedFeedCards6 } from './feed-enrich-6';
+import { enrichedFeedCards7 } from './feed-enrich-7';
+
 export type CardType = 'flashcard' | 'quiz' | 'fact' | 'tip' | 'material';
 export type Difficulty = 'dasar' | 'menengah' | 'lanjutan';
 export type ExamLevel = 'cafb' | 'associate-ca' | 'ca';
@@ -7480,6 +7488,17 @@ export const feedCards: FeedCard[] = [
 ];
 
 // Shuffle algorithm for variable ratio reinforcement
+// Merge all enriched cards into the base array
+feedCards.push(
+  ...enrichedFeedCards1,
+  ...enrichedFeedCards2,
+  ...enrichedFeedCards3,
+  ...enrichedFeedCards4,
+  ...enrichedFeedCards5,
+  ...enrichedFeedCards6,
+  ...enrichedFeedCards7,
+);
+
 export function shuffleFeed(cards: FeedCard[]): FeedCard[] {
   const shuffled = [...cards];
   for (let i = shuffled.length - 1; i > 0; i--) {
