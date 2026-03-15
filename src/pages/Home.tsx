@@ -1,8 +1,9 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Flame, Target, CheckCircle, Zap, BookOpen, Info, ChevronDown, ChevronUp, FileText, Flag } from 'lucide-react';
+import { Flame, Target, Zap, BookOpen, FileText, Flag, Info, ChevronDown, ChevronUp } from 'lucide-react';
 import { useProgress } from '../context/ProgressContext';
 import { subjects } from '../content/feedData';
+import SubjectIcon from '../components/cards/SubjectIcon';
 
 export default function Home() {
   const { streak, accuracy, totalCardsStudied, subjectProgress, lastSubjectId, flaggedCardIds, wrongCardIds } = useProgress();
@@ -16,26 +17,51 @@ export default function Home() {
 
   return (
     <div className="k-home">
-      {/* Stats row */}
-      <div className="k-stats-row">
-        <div className="k-stat-card">
-          <div className="k-stat-icon"><Flame size={20} /></div>
-          <div className="k-stat-val">{streak}</div>
-          <div className="k-stat-label">Hari Beruntun</div>
-        </div>
-        <div className="k-stat-card">
-          <div className="k-stat-icon"><Target size={20} /></div>
-          <div className="k-stat-val">{accuracy}%</div>
-          <div className="k-stat-label">Akurasi Quiz</div>
-        </div>
-        <div className="k-stat-card">
-          <div className="k-stat-icon"><CheckCircle size={20} /></div>
-          <div className="k-stat-val">{totalCardsStudied}</div>
-          <div className="k-stat-label">Kartu Selesai</div>
+
+      {/* Greeting header */}
+      <div className="k-home-greeting">
+        <div className="k-home-greeting-eyebrow">Selamat belajar</div>
+        <div className="k-home-greeting-title">Persiapan Ujian CA</div>
+        <div className="k-home-greeting-pills">
+          <span className="k-home-pill k-home-pill--streak">
+            <Flame size={12} />
+            {streak} hari beruntun
+          </span>
+          <span className="k-home-pill k-home-pill--accuracy">
+            <Target size={12} />
+            {accuracy}% akurasi
+          </span>
+          <span className="k-home-pill k-home-pill--cards">
+            {totalCardsStudied} kartu
+          </span>
         </div>
       </div>
 
-      {/* Hero CTA */}
+      {/* Subject story rings */}
+      <div className="k-home-stories-scroll">
+        {subjects.map(s => {
+          const prog = subjectProgress[s.id];
+          const isDone = prog && prog.studied >= prog.total && prog.total > 0;
+          const hasStarted = prog && prog.studied > 0;
+          const shortName = s.title.split(' ')[0];
+          return (
+            <Link
+              key={s.id}
+              to={`/subjects/${s.id}`}
+              className="k-story"
+            >
+              <div className={`k-story-ring ${isDone ? 'k-story-ring--done' : hasStarted ? 'k-story-ring--active' : ''}`}>
+                <div className="k-story-inner">
+                  <SubjectIcon id={s.id} size={20} />
+                </div>
+              </div>
+              <span className="k-story-label">{shortName}</span>
+            </Link>
+          );
+        })}
+      </div>
+
+      {/* Continue CTA */}
       {lastSubject ? (
         <Link to={`/subjects/${lastSubjectId}`} className="k-hero-cta">
           <div className="k-hero-cta-eyebrow">Lanjut Belajar</div>
@@ -57,24 +83,27 @@ export default function Home() {
         </Link>
       )}
 
-      {/* Quick links */}
-      <div className="k-home-grid">
-        <Link to="/feed" className="k-home-link k-home-link-primary">
-          <Zap size={20} />
-          <h3>Feed</h3>
-          <p>Scroll &amp; belajar</p>
+      {/* 4 quick-action tiles */}
+      <div className="k-home-actions">
+        <Link to="/feed" className="k-home-action k-home-action--primary">
+          <Zap size={22} className="k-home-action-icon" />
+          <span className="k-home-action-label">Feed</span>
+          <span className="k-home-action-sub">Scroll &amp; belajar</span>
         </Link>
-        <Link to="/subjects" className="k-home-link k-home-link-secondary">
-          <BookOpen size={20} />
-          <h3>Mata Ujian</h3>
-          <p>Semua level</p>
+        <Link to="/subjects" className="k-home-action">
+          <BookOpen size={22} className="k-home-action-icon" />
+          <span className="k-home-action-label">Mata Ujian</span>
+          <span className="k-home-action-sub">14 mata ujian</span>
         </Link>
-        <Link to="/subjects" className="k-home-link k-home-link-formal">
-          <FileText size={20} />
-          <div>
-            <h3>Materi Formal</h3>
-            <p>Referensi lengkap</p>
-          </div>
+        <Link to="/subjects/pengantar-akuntansi/formal" className="k-home-action">
+          <FileText size={22} className="k-home-action-icon" />
+          <span className="k-home-action-label">Materi Formal</span>
+          <span className="k-home-action-sub">Referensi lengkap</span>
+        </Link>
+        <Link to="/review" className="k-home-action">
+          <Flag size={22} className="k-home-action-icon" />
+          <span className="k-home-action-label">Review</span>
+          <span className="k-home-action-sub">{reviewCount > 0 ? `${reviewCount} kartu` : 'Kartu ditandai'}</span>
         </Link>
       </div>
 
