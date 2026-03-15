@@ -9,7 +9,7 @@ interface AuthContextType {
 
 const AuthContext = createContext<AuthContextType | null>(null);
 
-const CREDENTIAL_HASH = '1246e003400c3c1b709ce0e9493570174181d2f10cf5556d4f1a267bc0ae4d13';
+const CREDENTIAL_HASH = '61f4631f63585cf6212df249db13da642fa46c431da7830fa5c38802b60e9d6b';
 const SESSION_KEY = 'cpa-prep-auth';
 
 async function sha256(message: string): Promise<string> {
